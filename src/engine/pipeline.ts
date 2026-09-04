@@ -8,6 +8,7 @@ import { deriveEngineParams } from './embroidery/params';
 import { cropRotate, resample } from './image/resample';
 import { workingResolution } from './image/physical';
 import { buildWorkingImage } from './image/working';
+import { adjustRaster, IDENTITY_ADJUST } from './image/adjust';
 import { extractPalette } from './palette/extract';
 import { assignLabels, remapLabels } from './segmentation/assign';
 import { modeFilter } from './segmentation/modeFilter';
@@ -29,6 +30,7 @@ interface Stage<T> { key: string; value: T }
 
 export class Pipeline {
   private raster?: Stage<RasterRGBA>;
+  private adjusted?: Stage<RasterRGBA>;
   private working?: Stage<WorkingImage>;
   private palette?: Stage<ThreadPalette>;
   private segment?: Stage<{ raw: LabelMap; clean: LabelMap }>;
@@ -60,12 +62,20 @@ export class Pipeline {
     const rasterKey = JSON.stringify([req.sourceId, req.crop, res.width, res.height]);
     if (this.raster?.key !== rasterKey) {
       this.raster = { key: rasterKey, value: time('resample', () => resample(cropRotate(req.source, req.crop), res.width, res.height)) };
+      this.adjusted = undefined;
+    }
+    // 1b. global colour grading (depends on hue / saturation / lightness)
+    const adj = req.settings.colorAdjust ?? IDENTITY_ADJUST;
+    const adjustKey = rasterKey + JSON.stringify([adj.hue, adj.saturation, adj.lightness]);
+    if (this.adjusted?.key !== adjustKey) {
+      const raster = this.raster.value;
+      this.adjusted = { key: adjustKey, value: time('adjust', () => adjustRaster(raster, adj)) };
       this.working = undefined;
     }
-    // 1b. OKLab planes, contrast, pre-blur (depends on fidelity)
-    const workingKey = rasterKey + JSON.stringify([params.preBlurSigmaMm, res.mmPerPx]);
+    // 1c. OKLab planes, contrast, pre-blur (depends on fidelity)
+    const workingKey = adjustKey + JSON.stringify([params.preBlurSigmaMm, res.mmPerPx]);
     if (this.working?.key !== workingKey) {
-      const raster = this.raster.value;
+      const raster = this.adjusted.value;
       this.working = { key: workingKey, value: time('prepare', () => buildWorkingImage(raster, res.mmPerPx, params.preBlurSigmaMm)) };
       this.palette = undefined;
     }

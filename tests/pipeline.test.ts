@@ -3,6 +3,8 @@ import { Pipeline } from '@/engine/pipeline';
 import { getDmcLibrary } from '@/engine/threads/dmc';
 import { workingResolution } from '@/engine/image/physical';
 import { buildPatternSvg } from '@/engine/export/svg';
+import { adjustRaster, chromaScale } from '@/engine/image/adjust';
+import { oklabChroma, oklabHueDeg, rgbToOklab } from '@/engine/color';
 import { buildThreadListText } from '@/engine/export/threadList';
 import { DIMS, FULL_CROP, NO_EDITS, SETTINGS, sceneRaster } from './fixtures';
 
@@ -23,6 +25,48 @@ describe('physical scaling', () => {
     const res = new Pipeline(lib).run(req());
     const total = res.graph.regions.reduce((s, r) => s + r.areaMm2, 0);
     expect(total).toBeCloseTo(DIMS.widthMm * DIMS.heightMm, 0);
+  });
+});
+
+describe('colour adjustment', () => {
+  const identity = { hue: 0, saturation: 0, lightness: 0 };
+  it('identity adjustment is a no-op that returns the same raster', () => {
+    expect(adjustRaster(source, identity)).toBe(source);
+    expect(adjustRaster(source, undefined)).toBe(source);
+  });
+  it('full desaturation makes every pixel neutral', () => {
+    const grey = adjustRaster(source, { ...identity, saturation: -1 });
+    for (let p = 0; p < grey.rgba.length; p += 4 * 97) {
+      const c = oklabChroma(rgbToOklab([grey.rgba[p], grey.rgba[p + 1], grey.rgba[p + 2]]));
+      expect(c).toBeLessThan(0.01);
+    }
+    expect(chromaScale(1)).toBeGreaterThan(chromaScale(0));
+  });
+  it('hue rotation turns a red pixel green-ish and preserves lightness', () => {
+    const red = { width: 1, height: 1, rgba: new Uint8ClampedArray([220, 40, 40, 255]) };
+    const out = adjustRaster(red, { ...identity, hue: 120 });
+    const before = rgbToOklab([220, 40, 40]);
+    const after = rgbToOklab([out.rgba[0], out.rgba[1], out.rgba[2]]);
+    const dh = ((oklabHueDeg(after) - oklabHueDeg(before)) % 360 + 360) % 360;
+    expect(Math.abs(dh - 120)).toBeLessThan(15); // gamut clamping may nudge it
+    expect(Math.abs(after[0] - before[0])).toBeLessThan(0.08);
+    expect(out.rgba[3]).toBe(255);
+  });
+  it('desaturating the image yields a neutral thread palette', () => {
+    const mean = (r: ReturnType<Pipeline['run']>) => r.palette.entries.reduce((s, e) => s + oklabChroma(e.thread.oklab), 0) / r.palette.entries.length;
+    const plain = new Pipeline(lib).run(req());
+    const grey = new Pipeline(lib).run(req({ colorAdjust: { ...identity, saturation: -1 } }));
+    expect(mean(grey)).toBeLessThan(mean(plain) * 0.5);
+    // DMC has no perfectly neutral greys; the closest are warm/cool at ~0.05 chroma.
+    for (const e of grey.palette.entries) expect(oklabChroma(e.thread.oklab)).toBeLessThan(0.07);
+  });
+  it('re-uses the resample stage when only grading changes', () => {
+    const p = new Pipeline(lib);
+    p.run(req());
+    const graded = p.run(req({ colorAdjust: { ...identity, hue: 40 } }));
+    expect(graded.timingsMs.resample).toBeUndefined();
+    expect(graded.timingsMs.adjust).toBeDefined();
+    expect(graded.timingsMs.palette).toBeDefined();
   });
 });
 

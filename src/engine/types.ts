@@ -64,6 +64,13 @@ export interface EmbroideryDimensions {
 
 export type Preset = 'portrait' | 'animal' | 'botanical' | 'landscape' | 'flat' | 'custom';
 
+/** Global colour grading applied to the image before thread matching. */
+export interface ColorAdjust {
+  hue: number; // degrees, -180..180, rotation in OKLCh
+  saturation: number; // -1..1  Grey ↔ Vivid (chroma scale)
+  lightness: number; // -1..1  Darker ↔ Lighter
+}
+
 export interface ProcessingSettings {
   threadCount: number; // 4–40
   fidelity: number; // 0–1  Simplified ↔ Detailed
@@ -72,6 +79,8 @@ export interface ProcessingSettings {
   /** Optional override in mm; when undefined it is derived from complexity. */
   minDetailMm?: number;
   outlineStrength: number; // 0–1, pattern rendering only
+  /** Optional so projects saved before it existed still load (identity when absent). */
+  colorAdjust?: ColorAdjust;
   preset: Preset;
 }
 

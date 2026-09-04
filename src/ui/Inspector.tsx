@@ -1,6 +1,7 @@
 import { commitTransient, setView, updateDimensions, updateSettings, useAppState } from '@/app/store';
 import { rotate } from '@/app/controller';
 import { deriveEngineParams } from '@/engine/embroidery/params';
+import { IDENTITY_ADJUST, isIdentityAdjust } from '@/engine/image/adjust';
 import type { Hoop, StrandCount } from '@/engine/types';
 import { Check, NumberField, Section, Slider } from './controls';
 import { fmtInt, fmtMm } from './viewModel';
@@ -21,6 +22,9 @@ export function Inspector() {
   const est = s.result?.pattern.estimates;
   const commit = () => commitTransient();
   const num = (v: number) => (v < 10 ? v.toFixed(1) : Math.round(v).toString());
+  const adj = settings.colorAdjust ?? IDENTITY_ADJUST;
+  const setAdj = (patch: Partial<typeof adj>) => updateSettings({ colorAdjust: { ...adj, ...patch } }, { transient: true });
+  const signedPct = (v: number) => `${v > 0 ? '+' : ''}${Math.round(v * 100)}`;
 
   return (
     <aside className="inspector" aria-label="Inspector">
@@ -62,6 +66,19 @@ export function Inspector() {
         ) : (
           <div className="note">Ignoring details smaller than about <b className="num">{params.minFeatureMm.toFixed(1)} mm</b> ({params.minAreaMm2.toFixed(1)} mm²), up to {params.maxRegions} regions.</div>
         )}
+      </Section>
+
+      <Section title="Colour">
+        <Slider label="Hue" value={adj.hue} min={-180} max={180} step={1} display={(v) => `${v > 0 ? '+' : ''}${v}°`} ends={['−180°', '+180°']}
+          onInput={(v) => setAdj({ hue: v })} onCommit={commit} />
+        <Slider label="Saturation" value={adj.saturation} min={-1} max={1} step={0.01} display={signedPct} ends={['Grey', 'Vivid']}
+          onInput={(v) => setAdj({ saturation: v })} onCommit={commit} />
+        <Slider label="Lightness" value={adj.lightness} min={-1} max={1} step={0.01} display={signedPct} ends={['Darker', 'Lighter']}
+          onInput={(v) => setAdj({ lightness: v })} onCommit={commit} />
+        <div className="row">
+          <button className="btn" disabled={disabled || isIdentityAdjust(adj)} onClick={() => updateSettings({ colorAdjust: { ...IDENTITY_ADJUST } })}>Reset colour</button>
+        </div>
+        <div className="note">Grading is applied to the photo before thread matching, so the palette re-picks real DMC threads for the new colours.</div>
       </Section>
 
       <Section title="Pattern">

@@ -24,6 +24,7 @@ ProcessingSettings               // what the artist sets
   colorFidelity: number          // 0–1  Fewer threads ↔ Exact colour
   minDetailMm?: number           // override; otherwise derived from complexity
   outlineStrength: number        // 0–1, pattern rendering only
+  colorAdjust?: ColorAdjust      // { hue ±180°, saturation −1..1, lightness −1..1 }; graded before thread matching
   preset: 'portrait' | 'animal' | 'botanical' | 'landscape' | 'flat' | 'custom'
 
 EngineParams                     // derived from settings by embroidery/params.ts

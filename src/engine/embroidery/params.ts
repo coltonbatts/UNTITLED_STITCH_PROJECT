@@ -37,6 +37,7 @@ export const DEFAULT_SETTINGS: ProcessingSettings = {
   complexity: 0.5,
   colorFidelity: 0.6,
   outlineStrength: 0.5,
+  colorAdjust: { hue: 0, saturation: 0, lightness: 0 },
   preset: 'custom',
 };
 
