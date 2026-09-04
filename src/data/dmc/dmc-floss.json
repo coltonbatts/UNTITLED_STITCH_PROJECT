@@ -1,0 +1,5003 @@
+{
+ "library": "dmc",
+ "displayName": "DMC Six-Strand Cotton (Mouliné Spécial 117)",
+ "version": "2020-adrianj-sharlagelfand",
+ "source": "data/dmc/PROVENANCE.md",
+ "colorCount": 454,
+ "colors": [
+  {
+   "number": "3713",
+   "name": "Salmon Very Light",
+   "rgb": [
+    255,
+    226,
+    226
+   ],
+   "hex": "#FFE2E2",
+   "cardRow": "01-01"
+  },
+  {
+   "number": "761",
+   "name": "Salmon Light",
+   "rgb": [
+    255,
+    201,
+    201
+   ],
+   "hex": "#FFC9C9",
+   "cardRow": "01-02"
+  },
+  {
+   "number": "760",
+   "name": "Salmon",
+   "rgb": [
+    245,
+    173,
+    173
+   ],
+   "hex": "#F5ADAD",
+   "cardRow": "01-03"
+  },
+  {
+   "number": "3712",
+   "name": "Salmon Medium",
+   "rgb": [
+    241,
+    135,
+    135
+   ],
+   "hex": "#F18787",
+   "cardRow": "01-04"
+  },
+  {
+   "number": "3328",
+   "name": "Salmon Dark",
+   "rgb": [
+    227,
+    109,
+    109
+   ],
+   "hex": "#E36D6D",
+   "cardRow": "01-05"
+  },
+  {
+   "number": "347",
+   "name": "Salmon Very Dark",
+   "rgb": [
+    191,
+    45,
+    45
+   ],
+   "hex": "#BF2D2D",
+   "cardRow": "01-06"
+  },
+  {
+   "number": "353",
+   "name": "Peach",
+   "rgb": [
+    254,
+    215,
+    204
+   ],
+   "hex": "#FED7CC",
+   "cardRow": "01-07"
+  },
+  {
+   "number": "352",
+   "name": "Coral Light",
+   "rgb": [
+    253,
+    156,
+    151
+   ],
+   "hex": "#FD9C97",
+   "cardRow": "01-08"
+  },
+  {
+   "number": "351",
+   "name": "Coral",
+   "rgb": [
+    233,
+    106,
+    103
+   ],
+   "hex": "#E96A67",
+   "cardRow": "01-09"
+  },
+  {
+   "number": "350",
+   "name": "Coral Medium",
+   "rgb": [
+    224,
+    72,
+    72
+   ],
+   "hex": "#E04848",
+   "cardRow": "01-10"
+  },
+  {
+   "number": "349",
+   "name": "Coral Dark",
+   "rgb": [
+    210,
+    16,
+    53
+   ],
+   "hex": "#D21035",
+   "cardRow": "01-11"
+  },
+  {
+   "number": "817",
+   "name": "Coral Red Very Dark",
+   "rgb": [
+    187,
+    5,
+    31
+   ],
+   "hex": "#BB051F",
+   "cardRow": "01-12"
+  },
+  {
+   "number": "3708",
+   "name": "Melon Light",
+   "rgb": [
+    255,
+    203,
+    213
+   ],
+   "hex": "#FFCBD5",
+   "cardRow": "01-13"
+  },
+  {
+   "number": "3706",
+   "name": "Melon Medium",
+   "rgb": [
+    255,
+    173,
+    188
+   ],
+   "hex": "#FFADBC",
+   "cardRow": "01-14"
+  },
+  {
+   "number": "3705",
+   "name": "Melon Dark",
+   "rgb": [
+    255,
+    121,
+    146
+   ],
+   "hex": "#FF7992",
+   "cardRow": "01-15"
+  },
+  {
+   "number": "3801",
+   "name": "Melon Very Dark",
+   "rgb": [
+    231,
+    73,
+    103
+   ],
+   "hex": "#E74967",
+   "cardRow": "01-16"
+  },
+  {
+   "number": "666",
+   "name": "Bright Red",
+   "rgb": [
+    227,
+    29,
+    66
+   ],
+   "hex": "#E31D42",
+   "cardRow": "01-17"
+  },
+  {
+   "number": "321",
+   "name": "Red",
+   "rgb": [
+    199,
+    43,
+    59
+   ],
+   "hex": "#C72B3B",
+   "cardRow": "01-18"
+  },
+  {
+   "number": "304",
+   "name": "Red Medium",
+   "rgb": [
+    183,
+    31,
+    51
+   ],
+   "hex": "#B71F33",
+   "cardRow": "01-19"
+  },
+  {
+   "number": "498",
+   "name": "Red Dark",
+   "rgb": [
+    167,
+    19,
+    43
+   ],
+   "hex": "#A7132B",
+   "cardRow": "01-20"
+  },
+  {
+   "number": "816",
+   "name": "Garnet",
+   "rgb": [
+    151,
+    11,
+    35
+   ],
+   "hex": "#970B23",
+   "cardRow": "01-21"
+  },
+  {
+   "number": "815",
+   "name": "Garnet Medium",
+   "rgb": [
+    135,
+    7,
+    31
+   ],
+   "hex": "#87071F",
+   "cardRow": "01-22"
+  },
+  {
+   "number": "814",
+   "name": "Garnet Dark",
+   "rgb": [
+    123,
+    0,
+    27
+   ],
+   "hex": "#7B001B",
+   "cardRow": "01-23"
+  },
+  {
+   "number": "894",
+   "name": "Carnation Very Light",
+   "rgb": [
+    255,
+    178,
+    187
+   ],
+   "hex": "#FFB2BB",
+   "cardRow": "02-01"
+  },
+  {
+   "number": "893",
+   "name": "Carnation Light",
+   "rgb": [
+    252,
+    144,
+    162
+   ],
+   "hex": "#FC90A2",
+   "cardRow": "02-02"
+  },
+  {
+   "number": "892",
+   "name": "Carnation Medium",
+   "rgb": [
+    255,
+    121,
+    140
+   ],
+   "hex": "#FF798C",
+   "cardRow": "02-03"
+  },
+  {
+   "number": "891",
+   "name": "Carnation Dark",
+   "rgb": [
+    255,
+    87,
+    115
+   ],
+   "hex": "#FF5773",
+   "cardRow": "02-04"
+  },
+  {
+   "number": "818",
+   "name": "Baby Pink",
+   "rgb": [
+    255,
+    223,
+    217
+   ],
+   "hex": "#FFDFD9",
+   "cardRow": "02-05"
+  },
+  {
+   "number": "957",
+   "name": "Geranium Pale",
+   "rgb": [
+    253,
+    181,
+    181
+   ],
+   "hex": "#FDB5B5",
+   "cardRow": "02-06"
+  },
+  {
+   "number": "956",
+   "name": "Geranium",
+   "rgb": [
+    255,
+    145,
+    145
+   ],
+   "hex": "#FF9191",
+   "cardRow": "02-07"
+  },
+  {
+   "number": "309",
+   "name": "Rose Dark",
+   "rgb": [
+    186,
+    74,
+    74
+   ],
+   "hex": "#BA4A4A",
+   "cardRow": "02-08"
+  },
+  {
+   "number": "963",
+   "name": "Dusty Rose Ultra Very Light",
+   "rgb": [
+    255,
+    215,
+    215
+   ],
+   "hex": "#FFD7D7",
+   "cardRow": "02-09"
+  },
+  {
+   "number": "3716",
+   "name": "Dusty Rose Medium Very Light",
+   "rgb": [
+    255,
+    189,
+    189
+   ],
+   "hex": "#FFBDBD",
+   "cardRow": "02-10"
+  },
+  {
+   "number": "962",
+   "name": "Dusty Rose Medium",
+   "rgb": [
+    230,
+    138,
+    138
+   ],
+   "hex": "#E68A8A",
+   "cardRow": "02-11"
+  },
+  {
+   "number": "961",
+   "name": "Dusty Rose Dark",
+   "rgb": [
+    207,
+    115,
+    115
+   ],
+   "hex": "#CF7373",
+   "cardRow": "02-12"
+  },
+  {
+   "number": "3833",
+   "name": "Raspberry Light",
+   "rgb": [
+    234,
+    134,
+    153
+   ],
+   "hex": "#EA8699",
+   "cardRow": "02-13"
+  },
+  {
+   "number": "3832",
+   "name": "Raspberry Medium",
+   "rgb": [
+    219,
+    85,
+    110
+   ],
+   "hex": "#DB556E",
+   "cardRow": "02-14"
+  },
+  {
+   "number": "3831",
+   "name": "Raspberry Dark",
+   "rgb": [
+    179,
+    47,
+    72
+   ],
+   "hex": "#B32F48",
+   "cardRow": "02-15"
+  },
+  {
+   "number": "777",
+   "name": "Raspberry Very Dark",
+   "rgb": [
+    145,
+    53,
+    70
+   ],
+   "hex": "#913546",
+   "cardRow": "02-16"
+  },
+  {
+   "number": "819",
+   "name": "Baby Pink Light",
+   "rgb": [
+    255,
+    238,
+    235
+   ],
+   "hex": "#FFEEEB",
+   "cardRow": "02-17"
+  },
+  {
+   "number": "3326",
+   "name": "Rose Light",
+   "rgb": [
+    251,
+    173,
+    180
+   ],
+   "hex": "#FBADB4",
+   "cardRow": "02-18"
+  },
+  {
+   "number": "776",
+   "name": "Pink Medium",
+   "rgb": [
+    252,
+    176,
+    185
+   ],
+   "hex": "#FCB0B9",
+   "cardRow": "02-19"
+  },
+  {
+   "number": "899",
+   "name": "Rose Medium",
+   "rgb": [
+    242,
+    118,
+    136
+   ],
+   "hex": "#F27688",
+   "cardRow": "02-20"
+  },
+  {
+   "number": "335",
+   "name": "Rose",
+   "rgb": [
+    238,
+    84,
+    110
+   ],
+   "hex": "#EE546E",
+   "cardRow": "02-21"
+  },
+  {
+   "number": "326",
+   "name": "Rose Very Dark",
+   "rgb": [
+    179,
+    59,
+    75
+   ],
+   "hex": "#B33B4B",
+   "cardRow": "02-22"
+  },
+  {
+   "number": "151",
+   "name": "Dusty Rose Very Light",
+   "rgb": [
+    240,
+    206,
+    212
+   ],
+   "hex": "#F0CED4",
+   "cardRow": "03-01"
+  },
+  {
+   "number": "3354",
+   "name": "Dusty Rose Light",
+   "rgb": [
+    228,
+    166,
+    172
+   ],
+   "hex": "#E4A6AC",
+   "cardRow": "03-02"
+  },
+  {
+   "number": "3733",
+   "name": "Dusty Rose",
+   "rgb": [
+    232,
+    135,
+    155
+   ],
+   "hex": "#E8879B",
+   "cardRow": "03-03"
+  },
+  {
+   "number": "3731",
+   "name": "Dusty Rose Very Dark",
+   "rgb": [
+    218,
+    103,
+    131
+   ],
+   "hex": "#DA6783",
+   "cardRow": "03-04"
+  },
+  {
+   "number": "3350",
+   "name": "Dusty Rose Ultra Dark",
+   "rgb": [
+    188,
+    67,
+    101
+   ],
+   "hex": "#BC4365",
+   "cardRow": "03-05"
+  },
+  {
+   "number": "150",
+   "name": "Dusty Rose Ultra Very Dark",
+   "rgb": [
+    171,
+    2,
+    73
+   ],
+   "hex": "#AB0249",
+   "cardRow": "03-06"
+  },
+  {
+   "number": "3689",
+   "name": "Mauve Light",
+   "rgb": [
+    251,
+    191,
+    194
+   ],
+   "hex": "#FBBFC2",
+   "cardRow": "03-07"
+  },
+  {
+   "number": "3688",
+   "name": "Mauve Medium",
+   "rgb": [
+    231,
+    169,
+    172
+   ],
+   "hex": "#E7A9AC",
+   "cardRow": "03-08"
+  },
+  {
+   "number": "3687",
+   "name": "Mauve",
+   "rgb": [
+    201,
+    107,
+    112
+   ],
+   "hex": "#C96B70",
+   "cardRow": "03-09"
+  },
+  {
+   "number": "3803",
+   "name": "Mauve Dark",
+   "rgb": [
+    171,
+    51,
+    87
+   ],
+   "hex": "#AB3357",
+   "cardRow": "03-10"
+  },
+  {
+   "number": "3685",
+   "name": "Mauve Very Dark",
+   "rgb": [
+    136,
+    21,
+    49
+   ],
+   "hex": "#881531",
+   "cardRow": "03-11"
+  },
+  {
+   "number": "605",
+   "name": "Cranberry Very Light",
+   "rgb": [
+    255,
+    192,
+    205
+   ],
+   "hex": "#FFC0CD",
+   "cardRow": "03-12"
+  },
+  {
+   "number": "604",
+   "name": "Cranberry Light",
+   "rgb": [
+    255,
+    176,
+    190
+   ],
+   "hex": "#FFB0BE",
+   "cardRow": "03-13"
+  },
+  {
+   "number": "603",
+   "name": "Cranberry",
+   "rgb": [
+    255,
+    164,
+    190
+   ],
+   "hex": "#FFA4BE",
+   "cardRow": "03-14"
+  },
+  {
+   "number": "602",
+   "name": "Cranberry Medium",
+   "rgb": [
+    226,
+    72,
+    116
+   ],
+   "hex": "#E24874",
+   "cardRow": "03-15"
+  },
+  {
+   "number": "601",
+   "name": "Cranberry Dark",
+   "rgb": [
+    209,
+    40,
+    106
+   ],
+   "hex": "#D1286A",
+   "cardRow": "03-16"
+  },
+  {
+   "number": "600",
+   "name": "Cranberry Very Dark",
+   "rgb": [
+    205,
+    47,
+    99
+   ],
+   "hex": "#CD2F63",
+   "cardRow": "03-17"
+  },
+  {
+   "number": "3806",
+   "name": "Cyclamen Pink Light",
+   "rgb": [
+    255,
+    140,
+    174
+   ],
+   "hex": "#FF8CAE",
+   "cardRow": "03-18"
+  },
+  {
+   "number": "3805",
+   "name": "Cyclamen Pink",
+   "rgb": [
+    243,
+    71,
+    139
+   ],
+   "hex": "#F3478B",
+   "cardRow": "03-19"
+  },
+  {
+   "number": "3804",
+   "name": "Cyclamen Pink Dark",
+   "rgb": [
+    224,
+    40,
+    118
+   ],
+   "hex": "#E02876",
+   "cardRow": "03-20"
+  },
+  {
+   "number": "3609",
+   "name": "Plum Ultra Light",
+   "rgb": [
+    244,
+    174,
+    213
+   ],
+   "hex": "#F4AED5",
+   "cardRow": "03-21"
+  },
+  {
+   "number": "3608",
+   "name": "Plum Very Light",
+   "rgb": [
+    234,
+    156,
+    196
+   ],
+   "hex": "#EA9CC4",
+   "cardRow": "03-22"
+  },
+  {
+   "number": "3607",
+   "name": "Plum Light",
+   "rgb": [
+    197,
+    73,
+    137
+   ],
+   "hex": "#C54989",
+   "cardRow": "03-23"
+  },
+  {
+   "number": "718",
+   "name": "Plum",
+   "rgb": [
+    156,
+    36,
+    98
+   ],
+   "hex": "#9C2462",
+   "cardRow": "03-24"
+  },
+  {
+   "number": "917",
+   "name": "Plum Medium",
+   "rgb": [
+    155,
+    19,
+    89
+   ],
+   "hex": "#9B1359",
+   "cardRow": "03-25"
+  },
+  {
+   "number": "915",
+   "name": "Plum Dark",
+   "rgb": [
+    130,
+    0,
+    67
+   ],
+   "hex": "#820043",
+   "cardRow": "03-26"
+  },
+  {
+   "number": "225",
+   "name": "Shell Pink Ultra Very Light",
+   "rgb": [
+    255,
+    223,
+    213
+   ],
+   "hex": "#FFDFD5",
+   "cardRow": "04-01"
+  },
+  {
+   "number": "224",
+   "name": "Shell Pink Very Light",
+   "rgb": [
+    235,
+    183,
+    175
+   ],
+   "hex": "#EBB7AF",
+   "cardRow": "04-02"
+  },
+  {
+   "number": "152",
+   "name": "Shell Pink Medium Light",
+   "rgb": [
+    226,
+    160,
+    153
+   ],
+   "hex": "#E2A099",
+   "cardRow": "04-03"
+  },
+  {
+   "number": "223",
+   "name": "Shell Pink Light",
+   "rgb": [
+    204,
+    132,
+    124
+   ],
+   "hex": "#CC847C",
+   "cardRow": "04-04"
+  },
+  {
+   "number": "3722",
+   "name": "Shell Pink Medium",
+   "rgb": [
+    188,
+    108,
+    100
+   ],
+   "hex": "#BC6C64",
+   "cardRow": "04-05"
+  },
+  {
+   "number": "3721",
+   "name": "Shell Pink Dark",
+   "rgb": [
+    161,
+    75,
+    81
+   ],
+   "hex": "#A14B51",
+   "cardRow": "04-06"
+  },
+  {
+   "number": "221",
+   "name": "Shell Pink Very Dark",
+   "rgb": [
+    136,
+    62,
+    67
+   ],
+   "hex": "#883E43",
+   "cardRow": "04-07"
+  },
+  {
+   "number": "778",
+   "name": "Antique Mauve Very Light",
+   "rgb": [
+    223,
+    179,
+    187
+   ],
+   "hex": "#DFB3BB",
+   "cardRow": "04-08"
+  },
+  {
+   "number": "3727",
+   "name": "Antique Mauve Light",
+   "rgb": [
+    219,
+    169,
+    178
+   ],
+   "hex": "#DBA9B2",
+   "cardRow": "04-09"
+  },
+  {
+   "number": "316",
+   "name": "Antique Mauve Medium",
+   "rgb": [
+    183,
+    115,
+    127
+   ],
+   "hex": "#B7737F",
+   "cardRow": "04-10"
+  },
+  {
+   "number": "3726",
+   "name": "Antique Mauve Dark",
+   "rgb": [
+    155,
+    91,
+    102
+   ],
+   "hex": "#9B5B66",
+   "cardRow": "04-11"
+  },
+  {
+   "number": "315",
+   "name": "Antique Mauve Medium Dark",
+   "rgb": [
+    129,
+    73,
+    82
+   ],
+   "hex": "#814952",
+   "cardRow": "04-12"
+  },
+  {
+   "number": "3802",
+   "name": "Antique Mauve Very Dark",
+   "rgb": [
+    113,
+    65,
+    73
+   ],
+   "hex": "#714149",
+   "cardRow": "04-13"
+  },
+  {
+   "number": "902",
+   "name": "Garnet Very Dark",
+   "rgb": [
+    130,
+    38,
+    55
+   ],
+   "hex": "#822637",
+   "cardRow": "04-14"
+  },
+  {
+   "number": "3743",
+   "name": "Antique Violet Very Light",
+   "rgb": [
+    215,
+    203,
+    211
+   ],
+   "hex": "#D7CBD3",
+   "cardRow": "04-15"
+  },
+  {
+   "number": "3042",
+   "name": "Antique Violet Light",
+   "rgb": [
+    183,
+    157,
+    167
+   ],
+   "hex": "#B79DA7",
+   "cardRow": "04-16"
+  },
+  {
+   "number": "3041",
+   "name": "Antique Violet Medium",
+   "rgb": [
+    149,
+    111,
+    124
+   ],
+   "hex": "#956F7C",
+   "cardRow": "04-17"
+  },
+  {
+   "number": "3740",
+   "name": "Antique Violet Dark",
+   "rgb": [
+    120,
+    87,
+    98
+   ],
+   "hex": "#785762",
+   "cardRow": "04-18"
+  },
+  {
+   "number": "3836",
+   "name": "Grape Light",
+   "rgb": [
+    186,
+    145,
+    170
+   ],
+   "hex": "#BA91AA",
+   "cardRow": "04-19"
+  },
+  {
+   "number": "3835",
+   "name": "Grape Medium",
+   "rgb": [
+    148,
+    96,
+    131
+   ],
+   "hex": "#946083",
+   "cardRow": "04-20"
+  },
+  {
+   "number": "3834",
+   "name": "Grape Dark",
+   "rgb": [
+    114,
+    55,
+    93
+   ],
+   "hex": "#72375D",
+   "cardRow": "04-21"
+  },
+  {
+   "number": "154",
+   "name": "Grape Very Dark",
+   "rgb": [
+    87,
+    36,
+    51
+   ],
+   "hex": "#572433",
+   "cardRow": "04-22"
+  },
+  {
+   "number": "211",
+   "name": "Lavender Light",
+   "rgb": [
+    227,
+    203,
+    227
+   ],
+   "hex": "#E3CBE3",
+   "cardRow": "05-01"
+  },
+  {
+   "number": "210",
+   "name": "Lavender Medium",
+   "rgb": [
+    195,
+    159,
+    195
+   ],
+   "hex": "#C39FC3",
+   "cardRow": "05-02"
+  },
+  {
+   "number": "209",
+   "name": "Lavender Dark",
+   "rgb": [
+    163,
+    123,
+    167
+   ],
+   "hex": "#A37BA7",
+   "cardRow": "05-03"
+  },
+  {
+   "number": "208",
+   "name": "Lavender Very Dark",
+   "rgb": [
+    131,
+    91,
+    139
+   ],
+   "hex": "#835B8B",
+   "cardRow": "05-04"
+  },
+  {
+   "number": "3837",
+   "name": "Lavender Ultra Dark",
+   "rgb": [
+    108,
+    58,
+    110
+   ],
+   "hex": "#6C3A6E",
+   "cardRow": "05-05"
+  },
+  {
+   "number": "327",
+   "name": "Violet Dark",
+   "rgb": [
+    99,
+    54,
+    102
+   ],
+   "hex": "#633666",
+   "cardRow": "05-06"
+  },
+  {
+   "number": "153",
+   "name": "Violet Very Light",
+   "rgb": [
+    230,
+    204,
+    217
+   ],
+   "hex": "#E6CCD9",
+   "cardRow": "05-07"
+  },
+  {
+   "number": "554",
+   "name": "Violet Light",
+   "rgb": [
+    219,
+    179,
+    203
+   ],
+   "hex": "#DBB3CB",
+   "cardRow": "05-08"
+  },
+  {
+   "number": "553",
+   "name": "Violet",
+   "rgb": [
+    163,
+    99,
+    139
+   ],
+   "hex": "#A3638B",
+   "cardRow": "05-09"
+  },
+  {
+   "number": "552",
+   "name": "Violet Medium",
+   "rgb": [
+    128,
+    58,
+    107
+   ],
+   "hex": "#803A6B",
+   "cardRow": "05-10"
+  },
+  {
+   "number": "550",
+   "name": "Violet Very Dark",
+   "rgb": [
+    92,
+    24,
+    78
+   ],
+   "hex": "#5C184E",
+   "cardRow": "05-11"
+  },
+  {
+   "number": "3747",
+   "name": "Blue Violet Very Light",
+   "rgb": [
+    211,
+    215,
+    237
+   ],
+   "hex": "#D3D7ED",
+   "cardRow": "05-12"
+  },
+  {
+   "number": "341",
+   "name": "Blue Violet Light",
+   "rgb": [
+    183,
+    191,
+    221
+   ],
+   "hex": "#B7BFDD",
+   "cardRow": "05-13"
+  },
+  {
+   "number": "156",
+   "name": "Blue Violet Medium Light",
+   "rgb": [
+    163,
+    174,
+    209
+   ],
+   "hex": "#A3AED1",
+   "cardRow": "05-14"
+  },
+  {
+   "number": "340",
+   "name": "Blue Violet Medium",
+   "rgb": [
+    173,
+    167,
+    199
+   ],
+   "hex": "#ADA7C7",
+   "cardRow": "05-15"
+  },
+  {
+   "number": "155",
+   "name": "Blue Violet Medium Dark",
+   "rgb": [
+    152,
+    145,
+    182
+   ],
+   "hex": "#9891B6",
+   "cardRow": "05-16"
+  },
+  {
+   "number": "3746",
+   "name": "Blue Violet Dark",
+   "rgb": [
+    119,
+    107,
+    152
+   ],
+   "hex": "#776B98",
+   "cardRow": "05-17"
+  },
+  {
+   "number": "333",
+   "name": "Blue Violet Very Dark",
+   "rgb": [
+    92,
+    84,
+    120
+   ],
+   "hex": "#5C5478",
+   "cardRow": "05-18"
+  },
+  {
+   "number": "157",
+   "name": "Cornflower Blue Very Light",
+   "rgb": [
+    187,
+    195,
+    217
+   ],
+   "hex": "#BBC3D9",
+   "cardRow": "05-19"
+  },
+  {
+   "number": "794",
+   "name": "Cornflower Blue Light",
+   "rgb": [
+    143,
+    156,
+    193
+   ],
+   "hex": "#8F9CC1",
+   "cardRow": "05-20"
+  },
+  {
+   "number": "793",
+   "name": "Cornflower Blue Medium",
+   "rgb": [
+    112,
+    125,
+    162
+   ],
+   "hex": "#707DA2",
+   "cardRow": "05-21"
+  },
+  {
+   "number": "3807",
+   "name": "Cornflower Blue",
+   "rgb": [
+    96,
+    103,
+    140
+   ],
+   "hex": "#60678C",
+   "cardRow": "05-22"
+  },
+  {
+   "number": "792",
+   "name": "Cornflower Blue Dark",
+   "rgb": [
+    85,
+    91,
+    123
+   ],
+   "hex": "#555B7B",
+   "cardRow": "05-23"
+  },
+  {
+   "number": "158",
+   "name": "Cornflower Blu Medium Very Dark",
+   "rgb": [
+    76,
+    82,
+    110
+   ],
+   "hex": "#4C526E",
+   "cardRow": "05-24"
+  },
+  {
+   "number": "791",
+   "name": "Cornflower Blue Very Dark",
+   "rgb": [
+    70,
+    69,
+    99
+   ],
+   "hex": "#464563",
+   "cardRow": "05-25"
+  },
+  {
+   "number": "3840",
+   "name": "Lavender Blue Light",
+   "rgb": [
+    176,
+    192,
+    218
+   ],
+   "hex": "#B0C0DA",
+   "cardRow": "06-01"
+  },
+  {
+   "number": "3839",
+   "name": "Lavender Blue Medium",
+   "rgb": [
+    123,
+    142,
+    171
+   ],
+   "hex": "#7B8EAB",
+   "cardRow": "06-02"
+  },
+  {
+   "number": "3838",
+   "name": "Lavender Blue Dark",
+   "rgb": [
+    92,
+    114,
+    148
+   ],
+   "hex": "#5C7294",
+   "cardRow": "06-03"
+  },
+  {
+   "number": "800",
+   "name": "Delft Blue Pale",
+   "rgb": [
+    192,
+    204,
+    222
+   ],
+   "hex": "#C0CCDE",
+   "cardRow": "06-04"
+  },
+  {
+   "number": "809",
+   "name": "Delft Blue",
+   "rgb": [
+    148,
+    168,
+    198
+   ],
+   "hex": "#94A8C6",
+   "cardRow": "06-05"
+  },
+  {
+   "number": "799",
+   "name": "Delft Blue Medium",
+   "rgb": [
+    116,
+    142,
+    182
+   ],
+   "hex": "#748EB6",
+   "cardRow": "06-06"
+  },
+  {
+   "number": "798",
+   "name": "Delft Blue Dark",
+   "rgb": [
+    70,
+    106,
+    142
+   ],
+   "hex": "#466A8E",
+   "cardRow": "06-07"
+  },
+  {
+   "number": "797",
+   "name": "Royal Blue",
+   "rgb": [
+    19,
+    71,
+    125
+   ],
+   "hex": "#13477D",
+   "cardRow": "06-08"
+  },
+  {
+   "number": "796",
+   "name": "Royal Blue Dark",
+   "rgb": [
+    17,
+    65,
+    109
+   ],
+   "hex": "#11416D",
+   "cardRow": "06-09"
+  },
+  {
+   "number": "820",
+   "name": "Royal Blue Very Dark",
+   "rgb": [
+    14,
+    54,
+    92
+   ],
+   "hex": "#0E365C",
+   "cardRow": "06-10"
+  },
+  {
+   "number": "162",
+   "name": "Blue Ultra Very Light",
+   "rgb": [
+    219,
+    236,
+    245
+   ],
+   "hex": "#DBECF5",
+   "cardRow": "06-11"
+  },
+  {
+   "number": "827",
+   "name": "Blue Very Light",
+   "rgb": [
+    189,
+    221,
+    237
+   ],
+   "hex": "#BDDDED",
+   "cardRow": "06-12"
+  },
+  {
+   "number": "813",
+   "name": "Blue Light",
+   "rgb": [
+    161,
+    194,
+    215
+   ],
+   "hex": "#A1C2D7",
+   "cardRow": "06-13"
+  },
+  {
+   "number": "826",
+   "name": "Blue Medium",
+   "rgb": [
+    107,
+    158,
+    191
+   ],
+   "hex": "#6B9EBF",
+   "cardRow": "06-14"
+  },
+  {
+   "number": "825",
+   "name": "Blue Dark",
+   "rgb": [
+    71,
+    129,
+    165
+   ],
+   "hex": "#4781A5",
+   "cardRow": "06-15"
+  },
+  {
+   "number": "824",
+   "name": "Blue Very Dark",
+   "rgb": [
+    57,
+    105,
+    135
+   ],
+   "hex": "#396987",
+   "cardRow": "06-16"
+  },
+  {
+   "number": "996",
+   "name": "Electric Blue Medium",
+   "rgb": [
+    48,
+    194,
+    236
+   ],
+   "hex": "#30C2EC",
+   "cardRow": "06-17"
+  },
+  {
+   "number": "3843",
+   "name": "Electric Blue",
+   "rgb": [
+    20,
+    170,
+    208
+   ],
+   "hex": "#14AAD0",
+   "cardRow": "06-18"
+  },
+  {
+   "number": "995",
+   "name": "Electric Blue Dark",
+   "rgb": [
+    38,
+    150,
+    182
+   ],
+   "hex": "#2696B6",
+   "cardRow": "06-19"
+  },
+  {
+   "number": "3846",
+   "name": "Turquoise Light Bright",
+   "rgb": [
+    6,
+    227,
+    230
+   ],
+   "hex": "#06E3E6",
+   "cardRow": "06-20"
+  },
+  {
+   "number": "3845",
+   "name": "Turquoise Medium Bright",
+   "rgb": [
+    4,
+    196,
+    202
+   ],
+   "hex": "#04C4CA",
+   "cardRow": "06-21"
+  },
+  {
+   "number": "3844",
+   "name": "Turquoise Dark Bright",
+   "rgb": [
+    18,
+    174,
+    186
+   ],
+   "hex": "#12AEBA",
+   "cardRow": "06-22"
+  },
+  {
+   "number": "159",
+   "name": "Blue Gray Light",
+   "rgb": [
+    199,
+    202,
+    215
+   ],
+   "hex": "#C7CAD7",
+   "cardRow": "07-01"
+  },
+  {
+   "number": "160",
+   "name": "Blue Gray Medium",
+   "rgb": [
+    153,
+    159,
+    183
+   ],
+   "hex": "#999FB7",
+   "cardRow": "07-02"
+  },
+  {
+   "number": "161",
+   "name": "Blue Gray",
+   "rgb": [
+    120,
+    128,
+    164
+   ],
+   "hex": "#7880A4",
+   "cardRow": "07-03"
+  },
+  {
+   "number": "3756",
+   "name": "Baby Blue Ultra Very Light",
+   "rgb": [
+    238,
+    252,
+    252
+   ],
+   "hex": "#EEFCFC",
+   "cardRow": "07-04"
+  },
+  {
+   "number": "775",
+   "name": "Baby Blue Very Light",
+   "rgb": [
+    217,
+    235,
+    241
+   ],
+   "hex": "#D9EBF1",
+   "cardRow": "07-05"
+  },
+  {
+   "number": "3841",
+   "name": "Baby Blue Pale",
+   "rgb": [
+    205,
+    223,
+    237
+   ],
+   "hex": "#CDDFED",
+   "cardRow": "07-06"
+  },
+  {
+   "number": "3325",
+   "name": "Baby Blue Light",
+   "rgb": [
+    184,
+    210,
+    230
+   ],
+   "hex": "#B8D2E6",
+   "cardRow": "07-07"
+  },
+  {
+   "number": "3755",
+   "name": "Baby Blue",
+   "rgb": [
+    147,
+    180,
+    206
+   ],
+   "hex": "#93B4CE",
+   "cardRow": "07-08"
+  },
+  {
+   "number": "334",
+   "name": "Baby Blue Medium",
+   "rgb": [
+    115,
+    159,
+    193
+   ],
+   "hex": "#739FC1",
+   "cardRow": "07-09"
+  },
+  {
+   "number": "322",
+   "name": "Baby Blue Dark",
+   "rgb": [
+    90,
+    143,
+    184
+   ],
+   "hex": "#5A8FB8",
+   "cardRow": "07-10"
+  },
+  {
+   "number": "312",
+   "name": "Baby Blue Very Dark",
+   "rgb": [
+    53,
+    102,
+    139
+   ],
+   "hex": "#35668B",
+   "cardRow": "07-11"
+  },
+  {
+   "number": "803",
+   "name": "Baby Blue Ultra Very Dark",
+   "rgb": [
+    44,
+    89,
+    124
+   ],
+   "hex": "#2C597C",
+   "cardRow": "07-12"
+  },
+  {
+   "number": "336",
+   "name": "Navy Blue",
+   "rgb": [
+    37,
+    59,
+    115
+   ],
+   "hex": "#253B73",
+   "cardRow": "07-13"
+  },
+  {
+   "number": "823",
+   "name": "Navy Blue Dark",
+   "rgb": [
+    33,
+    48,
+    99
+   ],
+   "hex": "#213063",
+   "cardRow": "07-14"
+  },
+  {
+   "number": "939",
+   "name": "Navy Blue Very Dark",
+   "rgb": [
+    27,
+    40,
+    83
+   ],
+   "hex": "#1B2853",
+   "cardRow": "07-15"
+  },
+  {
+   "number": "3753",
+   "name": "Antique Blue Ultra Very Light",
+   "rgb": [
+    219,
+    226,
+    233
+   ],
+   "hex": "#DBE2E9",
+   "cardRow": "07-16"
+  },
+  {
+   "number": "3752",
+   "name": "Antique Blue Very Light",
+   "rgb": [
+    199,
+    209,
+    219
+   ],
+   "hex": "#C7D1DB",
+   "cardRow": "07-17"
+  },
+  {
+   "number": "932",
+   "name": "Antique Blue Light",
+   "rgb": [
+    162,
+    181,
+    198
+   ],
+   "hex": "#A2B5C6",
+   "cardRow": "07-18"
+  },
+  {
+   "number": "931",
+   "name": "Antique Blue Medium",
+   "rgb": [
+    106,
+    133,
+    158
+   ],
+   "hex": "#6A859E",
+   "cardRow": "07-19"
+  },
+  {
+   "number": "930",
+   "name": "Antique Blue Dark",
+   "rgb": [
+    69,
+    92,
+    113
+   ],
+   "hex": "#455C71",
+   "cardRow": "07-20"
+  },
+  {
+   "number": "3750",
+   "name": "Antique Blue Very Dark",
+   "rgb": [
+    56,
+    76,
+    94
+   ],
+   "hex": "#384C5E",
+   "cardRow": "07-21"
+  },
+  {
+   "number": "828",
+   "name": "Sky Blue Very Light",
+   "rgb": [
+    197,
+    232,
+    237
+   ],
+   "hex": "#C5E8ED",
+   "cardRow": "08-01"
+  },
+  {
+   "number": "3761",
+   "name": "Sky Blue Light",
+   "rgb": [
+    172,
+    216,
+    226
+   ],
+   "hex": "#ACD8E2",
+   "cardRow": "08-02"
+  },
+  {
+   "number": "519",
+   "name": "Sky Blue",
+   "rgb": [
+    126,
+    177,
+    200
+   ],
+   "hex": "#7EB1C8",
+   "cardRow": "08-03"
+  },
+  {
+   "number": "518",
+   "name": "Wedgewood Light",
+   "rgb": [
+    79,
+    147,
+    167
+   ],
+   "hex": "#4F93A7",
+   "cardRow": "08-04"
+  },
+  {
+   "number": "3760",
+   "name": "Wedgewood Medium",
+   "rgb": [
+    62,
+    133,
+    162
+   ],
+   "hex": "#3E85A2",
+   "cardRow": "08-05"
+  },
+  {
+   "number": "517",
+   "name": "Wedgewood Dark",
+   "rgb": [
+    59,
+    118,
+    143
+   ],
+   "hex": "#3B768F",
+   "cardRow": "08-06"
+  },
+  {
+   "number": "3842",
+   "name": "Wedgewood Very Dark",
+   "rgb": [
+    50,
+    102,
+    124
+   ],
+   "hex": "#32667C",
+   "cardRow": "08-07"
+  },
+  {
+   "number": "311",
+   "name": "Navy Blue Medium",
+   "rgb": [
+    28,
+    80,
+    102
+   ],
+   "hex": "#1C5066",
+   "cardRow": "08-08"
+  },
+  {
+   "number": "747",
+   "name": "Peacock Blue Very Light",
+   "rgb": [
+    229,
+    252,
+    253
+   ],
+   "hex": "#E5FCFD",
+   "cardRow": "08-09"
+  },
+  {
+   "number": "3766",
+   "name": "Peacock Blue Light",
+   "rgb": [
+    153,
+    207,
+    217
+   ],
+   "hex": "#99CFD9",
+   "cardRow": "08-10"
+  },
+  {
+   "number": "807",
+   "name": "Peacock Blue",
+   "rgb": [
+    100,
+    171,
+    186
+   ],
+   "hex": "#64ABBA",
+   "cardRow": "08-11"
+  },
+  {
+   "number": "806",
+   "name": "Peacock Blue Dark",
+   "rgb": [
+    61,
+    149,
+    165
+   ],
+   "hex": "#3D95A5",
+   "cardRow": "08-12"
+  },
+  {
+   "number": "3765",
+   "name": "Peacock Blue Very Dark",
+   "rgb": [
+    52,
+    127,
+    140
+   ],
+   "hex": "#347F8C",
+   "cardRow": "08-13"
+  },
+  {
+   "number": "3811",
+   "name": "Turquoise Very Light",
+   "rgb": [
+    188,
+    227,
+    230
+   ],
+   "hex": "#BCE3E6",
+   "cardRow": "08-14"
+  },
+  {
+   "number": "598",
+   "name": "Turquoise Light",
+   "rgb": [
+    144,
+    195,
+    204
+   ],
+   "hex": "#90C3CC",
+   "cardRow": "08-15"
+  },
+  {
+   "number": "597",
+   "name": "Turquoise",
+   "rgb": [
+    91,
+    163,
+    179
+   ],
+   "hex": "#5BA3B3",
+   "cardRow": "08-16"
+  },
+  {
+   "number": "3810",
+   "name": "Turquoise Dark",
+   "rgb": [
+    72,
+    142,
+    154
+   ],
+   "hex": "#488E9A",
+   "cardRow": "08-17"
+  },
+  {
+   "number": "3809",
+   "name": "Turquoise Very Dark",
+   "rgb": [
+    63,
+    124,
+    133
+   ],
+   "hex": "#3F7C85",
+   "cardRow": "08-18"
+  },
+  {
+   "number": "3808",
+   "name": "Turquoise Ultra Very Dark",
+   "rgb": [
+    54,
+    105,
+    112
+   ],
+   "hex": "#366970",
+   "cardRow": "08-19"
+  },
+  {
+   "number": "928",
+   "name": "Gray Green Very Light",
+   "rgb": [
+    221,
+    227,
+    227
+   ],
+   "hex": "#DDE3E3",
+   "cardRow": "08-20"
+  },
+  {
+   "number": "927",
+   "name": "Gray Green Light",
+   "rgb": [
+    189,
+    203,
+    203
+   ],
+   "hex": "#BDCBCB",
+   "cardRow": "08-21"
+  },
+  {
+   "number": "926",
+   "name": "Gray Green Medium",
+   "rgb": [
+    152,
+    174,
+    174
+   ],
+   "hex": "#98AEAE",
+   "cardRow": "08-22"
+  },
+  {
+   "number": "3768",
+   "name": "Gray Green Dark",
+   "rgb": [
+    101,
+    127,
+    127
+   ],
+   "hex": "#657F7F",
+   "cardRow": "08-23"
+  },
+  {
+   "number": "924",
+   "name": "Gray Green Very Dark",
+   "rgb": [
+    86,
+    106,
+    106
+   ],
+   "hex": "#566A6A",
+   "cardRow": "08-24"
+  },
+  {
+   "number": "3849",
+   "name": "Teal Green Light",
+   "rgb": [
+    82,
+    179,
+    174
+   ],
+   "hex": "#52B3AE",
+   "cardRow": "08-25"
+  },
+  {
+   "number": "3848",
+   "name": "Teal Green Medium",
+   "rgb": [
+    65,
+    147,
+    146
+   ],
+   "hex": "#419392",
+   "cardRow": "08-26"
+  },
+  {
+   "number": "3847",
+   "name": "Teal Green Dark",
+   "rgb": [
+    52,
+    125,
+    117
+   ],
+   "hex": "#347D75",
+   "cardRow": "08-27"
+  },
+  {
+   "number": "964",
+   "name": "Sea Green Light",
+   "rgb": [
+    169,
+    226,
+    216
+   ],
+   "hex": "#A9E2D8",
+   "cardRow": "09-01"
+  },
+  {
+   "number": "959",
+   "name": "Sea Green Medium",
+   "rgb": [
+    89,
+    199,
+    180
+   ],
+   "hex": "#59C7B4",
+   "cardRow": "09-02"
+  },
+  {
+   "number": "958",
+   "name": "Sea Green Dark",
+   "rgb": [
+    62,
+    182,
+    161
+   ],
+   "hex": "#3EB6A1",
+   "cardRow": "09-03"
+  },
+  {
+   "number": "3812",
+   "name": "Sea Green Very Dark",
+   "rgb": [
+    47,
+    140,
+    132
+   ],
+   "hex": "#2F8C84",
+   "cardRow": "09-04"
+  },
+  {
+   "number": "3851",
+   "name": "Green Bright Light",
+   "rgb": [
+    73,
+    179,
+    161
+   ],
+   "hex": "#49B3A1",
+   "cardRow": "09-05"
+  },
+  {
+   "number": "943",
+   "name": "Aquamarine Medium",
+   "rgb": [
+    61,
+    147,
+    132
+   ],
+   "hex": "#3D9384",
+   "cardRow": "09-06"
+  },
+  {
+   "number": "3850",
+   "name": "Green Bright Dark",
+   "rgb": [
+    55,
+    132,
+    119
+   ],
+   "hex": "#378477",
+   "cardRow": "09-07"
+  },
+  {
+   "number": "993",
+   "name": "Aquamarine Very Light",
+   "rgb": [
+    144,
+    192,
+    180
+   ],
+   "hex": "#90C0B4",
+   "cardRow": "09-08"
+  },
+  {
+   "number": "992",
+   "name": "Aquamarine Light",
+   "rgb": [
+    111,
+    174,
+    159
+   ],
+   "hex": "#6FAE9F",
+   "cardRow": "09-09"
+  },
+  {
+   "number": "3814",
+   "name": "Aquamarine",
+   "rgb": [
+    80,
+    139,
+    125
+   ],
+   "hex": "#508B7D",
+   "cardRow": "09-10"
+  },
+  {
+   "number": "991",
+   "name": "Aquamarine Dark",
+   "rgb": [
+    71,
+    123,
+    110
+   ],
+   "hex": "#477B6E",
+   "cardRow": "09-11"
+  },
+  {
+   "number": "966",
+   "name": "Baby Green Medium",
+   "rgb": [
+    185,
+    215,
+    192
+   ],
+   "hex": "#B9D7C0",
+   "cardRow": "09-12"
+  },
+  {
+   "number": "564",
+   "name": "Jade Very Light",
+   "rgb": [
+    167,
+    205,
+    175
+   ],
+   "hex": "#A7CDAF",
+   "cardRow": "09-13"
+  },
+  {
+   "number": "563",
+   "name": "Jade Light",
+   "rgb": [
+    143,
+    192,
+    152
+   ],
+   "hex": "#8FC098",
+   "cardRow": "09-14"
+  },
+  {
+   "number": "562",
+   "name": "Jade Medium",
+   "rgb": [
+    83,
+    151,
+    106
+   ],
+   "hex": "#53976A",
+   "cardRow": "09-15"
+  },
+  {
+   "number": "505",
+   "name": "Jade Green",
+   "rgb": [
+    51,
+    131,
+    98
+   ],
+   "hex": "#338362",
+   "cardRow": "09-16"
+  },
+  {
+   "number": "3817",
+   "name": "Celadon Green Light",
+   "rgb": [
+    153,
+    195,
+    170
+   ],
+   "hex": "#99C3AA",
+   "cardRow": "09-17"
+  },
+  {
+   "number": "3816",
+   "name": "Celadon Green",
+   "rgb": [
+    101,
+    165,
+    125
+   ],
+   "hex": "#65A57D",
+   "cardRow": "09-18"
+  },
+  {
+   "number": "163",
+   "name": "Celadon Green Medium",
+   "rgb": [
+    77,
+    131,
+    97
+   ],
+   "hex": "#4D8361",
+   "cardRow": "09-19"
+  },
+  {
+   "number": "3815",
+   "name": "Celadon Green Dark",
+   "rgb": [
+    71,
+    119,
+    89
+   ],
+   "hex": "#477759",
+   "cardRow": "09-20"
+  },
+  {
+   "number": "561",
+   "name": "Jade Very Dark",
+   "rgb": [
+    44,
+    106,
+    69
+   ],
+   "hex": "#2C6A45",
+   "cardRow": "09-21"
+  },
+  {
+   "number": "504",
+   "name": "Blue Green Very Light",
+   "rgb": [
+    196,
+    222,
+    204
+   ],
+   "hex": "#C4DECC",
+   "cardRow": "09-22"
+  },
+  {
+   "number": "3813",
+   "name": "Blue Green Light",
+   "rgb": [
+    178,
+    212,
+    189
+   ],
+   "hex": "#B2D4BD",
+   "cardRow": "09-23"
+  },
+  {
+   "number": "503",
+   "name": "Blue Green Medium",
+   "rgb": [
+    123,
+    172,
+    148
+   ],
+   "hex": "#7BAC94",
+   "cardRow": "09-24"
+  },
+  {
+   "number": "502",
+   "name": "Blue Green",
+   "rgb": [
+    91,
+    144,
+    113
+   ],
+   "hex": "#5B9071",
+   "cardRow": "09-25"
+  },
+  {
+   "number": "501",
+   "name": "Blue Green Dark",
+   "rgb": [
+    57,
+    111,
+    82
+   ],
+   "hex": "#396F52",
+   "cardRow": "09-26"
+  },
+  {
+   "number": "500",
+   "name": "Blue Green Very Dark",
+   "rgb": [
+    4,
+    77,
+    51
+   ],
+   "hex": "#044D33",
+   "cardRow": "09-27"
+  },
+  {
+   "number": "955",
+   "name": "Nile Green Light",
+   "rgb": [
+    162,
+    214,
+    173
+   ],
+   "hex": "#A2D6AD",
+   "cardRow": "10-01"
+  },
+  {
+   "number": "954",
+   "name": "Nile Green",
+   "rgb": [
+    136,
+    186,
+    145
+   ],
+   "hex": "#88BA91",
+   "cardRow": "10-02"
+  },
+  {
+   "number": "913",
+   "name": "Nile Green Medium",
+   "rgb": [
+    109,
+    171,
+    119
+   ],
+   "hex": "#6DAB77",
+   "cardRow": "10-03"
+  },
+  {
+   "number": "912",
+   "name": "Emerald Green Light",
+   "rgb": [
+    27,
+    157,
+    107
+   ],
+   "hex": "#1B9D6B",
+   "cardRow": "10-04"
+  },
+  {
+   "number": "911",
+   "name": "Emerald Green Medium",
+   "rgb": [
+    24,
+    144,
+    101
+   ],
+   "hex": "#189065",
+   "cardRow": "10-05"
+  },
+  {
+   "number": "910",
+   "name": "Emerald Green Dark",
+   "rgb": [
+    24,
+    126,
+    86
+   ],
+   "hex": "#187E56",
+   "cardRow": "10-06"
+  },
+  {
+   "number": "909",
+   "name": "Emerald Green Very Dark",
+   "rgb": [
+    21,
+    111,
+    73
+   ],
+   "hex": "#156F49",
+   "cardRow": "10-07"
+  },
+  {
+   "number": "3818",
+   "name": "Emerald Green Ultra Very Dark",
+   "rgb": [
+    17,
+    90,
+    59
+   ],
+   "hex": "#115A3B",
+   "cardRow": "10-08"
+  },
+  {
+   "number": "369",
+   "name": "Pistachio Green Very Light",
+   "rgb": [
+    215,
+    237,
+    204
+   ],
+   "hex": "#D7EDCC",
+   "cardRow": "10-09"
+  },
+  {
+   "number": "368",
+   "name": "Pistachio Green Light",
+   "rgb": [
+    166,
+    194,
+    152
+   ],
+   "hex": "#A6C298",
+   "cardRow": "10-10"
+  },
+  {
+   "number": "320",
+   "name": "Pistachio Green Medium",
+   "rgb": [
+    105,
+    136,
+    90
+   ],
+   "hex": "#69885A",
+   "cardRow": "10-11"
+  },
+  {
+   "number": "367",
+   "name": "Pistachio Green Dark",
+   "rgb": [
+    97,
+    122,
+    82
+   ],
+   "hex": "#617A52",
+   "cardRow": "10-12"
+  },
+  {
+   "number": "319",
+   "name": "Pistachio Green Very Dark",
+   "rgb": [
+    32,
+    95,
+    46
+   ],
+   "hex": "#205F2E",
+   "cardRow": "10-13"
+  },
+  {
+   "number": "890",
+   "name": "Pistachio Green Ultra Dark",
+   "rgb": [
+    23,
+    73,
+    35
+   ],
+   "hex": "#174923",
+   "cardRow": "10-14"
+  },
+  {
+   "number": "164",
+   "name": "Forest Green Light",
+   "rgb": [
+    200,
+    216,
+    184
+   ],
+   "hex": "#C8D8B8",
+   "cardRow": "10-15"
+  },
+  {
+   "number": "989",
+   "name": "Forest Green",
+   "rgb": [
+    141,
+    166,
+    117
+   ],
+   "hex": "#8DA675",
+   "cardRow": "10-16"
+  },
+  {
+   "number": "988",
+   "name": "Forest Green Medium",
+   "rgb": [
+    115,
+    139,
+    91
+   ],
+   "hex": "#738B5B",
+   "cardRow": "10-17"
+  },
+  {
+   "number": "987",
+   "name": "Forest Green Dark",
+   "rgb": [
+    88,
+    113,
+    65
+   ],
+   "hex": "#587141",
+   "cardRow": "10-18"
+  },
+  {
+   "number": "986",
+   "name": "Forest Green Very Dark",
+   "rgb": [
+    64,
+    82,
+    48
+   ],
+   "hex": "#405230",
+   "cardRow": "10-19"
+  },
+  {
+   "number": "772",
+   "name": "Yellow Green Very Light",
+   "rgb": [
+    228,
+    236,
+    212
+   ],
+   "hex": "#E4ECD4",
+   "cardRow": "10-20"
+  },
+  {
+   "number": "3348",
+   "name": "Yellow Green Light",
+   "rgb": [
+    204,
+    217,
+    177
+   ],
+   "hex": "#CCD9B1",
+   "cardRow": "10-21"
+  },
+  {
+   "number": "3347",
+   "name": "Yellow Green Medium",
+   "rgb": [
+    113,
+    147,
+    92
+   ],
+   "hex": "#71935C",
+   "cardRow": "10-22"
+  },
+  {
+   "number": "3346",
+   "name": "Hunter Green",
+   "rgb": [
+    64,
+    106,
+    58
+   ],
+   "hex": "#406A3A",
+   "cardRow": "10-23"
+  },
+  {
+   "number": "3345",
+   "name": "Hunter Green Dark",
+   "rgb": [
+    27,
+    89,
+    21
+   ],
+   "hex": "#1B5915",
+   "cardRow": "10-24"
+  },
+  {
+   "number": "895",
+   "name": "Hunter Green Very Dark",
+   "rgb": [
+    27,
+    83,
+    0
+   ],
+   "hex": "#1B5300",
+   "cardRow": "10-25"
+  },
+  {
+   "number": "704",
+   "name": "Chartreuse Bright",
+   "rgb": [
+    158,
+    207,
+    52
+   ],
+   "hex": "#9ECF34",
+   "cardRow": "11-01"
+  },
+  {
+   "number": "703",
+   "name": "Chartreuse",
+   "rgb": [
+    123,
+    181,
+    71
+   ],
+   "hex": "#7BB547",
+   "cardRow": "11-02"
+  },
+  {
+   "number": "702",
+   "name": "Kelly Green",
+   "rgb": [
+    71,
+    167,
+    47
+   ],
+   "hex": "#47A72F",
+   "cardRow": "11-03"
+  },
+  {
+   "number": "701",
+   "name": "Green Light",
+   "rgb": [
+    63,
+    143,
+    41
+   ],
+   "hex": "#3F8F29",
+   "cardRow": "11-04"
+  },
+  {
+   "number": "700",
+   "name": "Green Bright",
+   "rgb": [
+    7,
+    115,
+    27
+   ],
+   "hex": "#07731B",
+   "cardRow": "11-05"
+  },
+  {
+   "number": "699",
+   "name": "Green",
+   "rgb": [
+    5,
+    101,
+    23
+   ],
+   "hex": "#056517",
+   "cardRow": "11-06"
+  },
+  {
+   "number": "907",
+   "name": "Parrot Green Light",
+   "rgb": [
+    199,
+    230,
+    102
+   ],
+   "hex": "#C7E666",
+   "cardRow": "11-07"
+  },
+  {
+   "number": "906",
+   "name": "Parrot Green Medium",
+   "rgb": [
+    127,
+    179,
+    53
+   ],
+   "hex": "#7FB335",
+   "cardRow": "11-08"
+  },
+  {
+   "number": "905",
+   "name": "Parrot Green Dark",
+   "rgb": [
+    98,
+    138,
+    40
+   ],
+   "hex": "#628A28",
+   "cardRow": "11-09"
+  },
+  {
+   "number": "904",
+   "name": "Parrot Green Very Dark",
+   "rgb": [
+    85,
+    120,
+    34
+   ],
+   "hex": "#557822",
+   "cardRow": "11-10"
+  },
+  {
+   "number": "472",
+   "name": "Avocado Green Ultra Light",
+   "rgb": [
+    216,
+    228,
+    152
+   ],
+   "hex": "#D8E498",
+   "cardRow": "11-11"
+  },
+  {
+   "number": "471",
+   "name": "Avocado Green Very Light",
+   "rgb": [
+    174,
+    191,
+    121
+   ],
+   "hex": "#AEBF79",
+   "cardRow": "11-12"
+  },
+  {
+   "number": "470",
+   "name": "Avocado Green Light",
+   "rgb": [
+    148,
+    171,
+    79
+   ],
+   "hex": "#94AB4F",
+   "cardRow": "11-13"
+  },
+  {
+   "number": "469",
+   "name": "Avocado Green",
+   "rgb": [
+    114,
+    132,
+    60
+   ],
+   "hex": "#72843C",
+   "cardRow": "11-14"
+  },
+  {
+   "number": "937",
+   "name": "Avocado Green Medium",
+   "rgb": [
+    98,
+    113,
+    51
+   ],
+   "hex": "#627133",
+   "cardRow": "11-15"
+  },
+  {
+   "number": "936",
+   "name": "Avocado Green Very Dark",
+   "rgb": [
+    76,
+    88,
+    38
+   ],
+   "hex": "#4C5826",
+   "cardRow": "11-16"
+  },
+  {
+   "number": "935",
+   "name": "Avocado Green Dark",
+   "rgb": [
+    66,
+    77,
+    33
+   ],
+   "hex": "#424D21",
+   "cardRow": "11-17"
+  },
+  {
+   "number": "934",
+   "name": "Avocado Green Black",
+   "rgb": [
+    49,
+    57,
+    25
+   ],
+   "hex": "#313919",
+   "cardRow": "11-18"
+  },
+  {
+   "number": "523",
+   "name": "Fern Green Light",
+   "rgb": [
+    171,
+    177,
+    151
+   ],
+   "hex": "#ABB197",
+   "cardRow": "11-19"
+  },
+  {
+   "number": "3053",
+   "name": "Green Gray",
+   "rgb": [
+    156,
+    164,
+    130
+   ],
+   "hex": "#9CA482",
+   "cardRow": "11-20"
+  },
+  {
+   "number": "3052",
+   "name": "Green Gray Medium",
+   "rgb": [
+    136,
+    146,
+    104
+   ],
+   "hex": "#889268",
+   "cardRow": "11-21"
+  },
+  {
+   "number": "3051",
+   "name": "Green Gray Dark",
+   "rgb": [
+    95,
+    102,
+    72
+   ],
+   "hex": "#5F6648",
+   "cardRow": "11-22"
+  },
+  {
+   "number": "524",
+   "name": "Fern Green Very Light",
+   "rgb": [
+    196,
+    205,
+    172
+   ],
+   "hex": "#C4CDAC",
+   "cardRow": "11-23"
+  },
+  {
+   "number": "522",
+   "name": "Fern Green",
+   "rgb": [
+    150,
+    158,
+    126
+   ],
+   "hex": "#969E7E",
+   "cardRow": "11-24"
+  },
+  {
+   "number": "520",
+   "name": "Fern Green Dark",
+   "rgb": [
+    102,
+    109,
+    79
+   ],
+   "hex": "#666D4F",
+   "cardRow": "11-25"
+  },
+  {
+   "number": "3364",
+   "name": "Pine Green",
+   "rgb": [
+    131,
+    151,
+    95
+   ],
+   "hex": "#83975F",
+   "cardRow": "12-01"
+  },
+  {
+   "number": "3363",
+   "name": "Pine Green Medium",
+   "rgb": [
+    114,
+    130,
+    86
+   ],
+   "hex": "#728256",
+   "cardRow": "12-02"
+  },
+  {
+   "number": "3362",
+   "name": "Pine Green Dark",
+   "rgb": [
+    94,
+    107,
+    71
+   ],
+   "hex": "#5E6B47",
+   "cardRow": "12-03"
+  },
+  {
+   "number": "165",
+   "name": "Moss Green Very Light",
+   "rgb": [
+    239,
+    244,
+    164
+   ],
+   "hex": "#EFF4A4",
+   "cardRow": "12-04"
+  },
+  {
+   "number": "3819",
+   "name": "Moss Green Light",
+   "rgb": [
+    224,
+    232,
+    104
+   ],
+   "hex": "#E0E868",
+   "cardRow": "12-05"
+  },
+  {
+   "number": "166",
+   "name": "Moss Green Medium Light",
+   "rgb": [
+    192,
+    200,
+    64
+   ],
+   "hex": "#C0C840",
+   "cardRow": "12-06"
+  },
+  {
+   "number": "581",
+   "name": "Moss Green",
+   "rgb": [
+    167,
+    174,
+    56
+   ],
+   "hex": "#A7AE38",
+   "cardRow": "12-07"
+  },
+  {
+   "number": "580",
+   "name": "Moss Green Dark",
+   "rgb": [
+    136,
+    141,
+    51
+   ],
+   "hex": "#888D33",
+   "cardRow": "12-08"
+  },
+  {
+   "number": "734",
+   "name": "Olive Green Light",
+   "rgb": [
+    199,
+    192,
+    119
+   ],
+   "hex": "#C7C077",
+   "cardRow": "12-09"
+  },
+  {
+   "number": "733",
+   "name": "Olive Green Medium",
+   "rgb": [
+    188,
+    179,
+    76
+   ],
+   "hex": "#BCB34C",
+   "cardRow": "12-10"
+  },
+  {
+   "number": "732",
+   "name": "Olive Green",
+   "rgb": [
+    148,
+    140,
+    54
+   ],
+   "hex": "#948C36",
+   "cardRow": "12-11"
+  },
+  {
+   "number": "731",
+   "name": "Olive Green Dark",
+   "rgb": [
+    147,
+    139,
+    55
+   ],
+   "hex": "#938B37",
+   "cardRow": "12-12"
+  },
+  {
+   "number": "730",
+   "name": "Olive Green Very Dark",
+   "rgb": [
+    130,
+    123,
+    48
+   ],
+   "hex": "#827B30",
+   "cardRow": "12-13"
+  },
+  {
+   "number": "3013",
+   "name": "Khaki Green Light",
+   "rgb": [
+    185,
+    185,
+    130
+   ],
+   "hex": "#B9B982",
+   "cardRow": "12-14"
+  },
+  {
+   "number": "3012",
+   "name": "Khaki Green Medium",
+   "rgb": [
+    166,
+    167,
+    93
+   ],
+   "hex": "#A6A75D",
+   "cardRow": "12-15"
+  },
+  {
+   "number": "3011",
+   "name": "Khaki Green Dark",
+   "rgb": [
+    137,
+    138,
+    88
+   ],
+   "hex": "#898A58",
+   "cardRow": "12-16"
+  },
+  {
+   "number": "372",
+   "name": "Mustard Light",
+   "rgb": [
+    204,
+    183,
+    132
+   ],
+   "hex": "#CCB784",
+   "cardRow": "12-17"
+  },
+  {
+   "number": "371",
+   "name": "Mustard",
+   "rgb": [
+    191,
+    166,
+    113
+   ],
+   "hex": "#BFA671",
+   "cardRow": "12-18"
+  },
+  {
+   "number": "370",
+   "name": "Mustard Medium",
+   "rgb": [
+    184,
+    157,
+    100
+   ],
+   "hex": "#B89D64",
+   "cardRow": "12-19"
+  },
+  {
+   "number": "834",
+   "name": "Golden Olive Very Light",
+   "rgb": [
+    219,
+    190,
+    127
+   ],
+   "hex": "#DBBE7F",
+   "cardRow": "12-20"
+  },
+  {
+   "number": "833",
+   "name": "Golden Olive Light",
+   "rgb": [
+    200,
+    171,
+    108
+   ],
+   "hex": "#C8AB6C",
+   "cardRow": "12-21"
+  },
+  {
+   "number": "832",
+   "name": "Golden Olive",
+   "rgb": [
+    189,
+    155,
+    81
+   ],
+   "hex": "#BD9B51",
+   "cardRow": "12-22"
+  },
+  {
+   "number": "831",
+   "name": "Golden Olive Medium",
+   "rgb": [
+    170,
+    143,
+    86
+   ],
+   "hex": "#AA8F56",
+   "cardRow": "12-23"
+  },
+  {
+   "number": "830",
+   "name": "Golden Olive Dark",
+   "rgb": [
+    141,
+    120,
+    75
+   ],
+   "hex": "#8D784B",
+   "cardRow": "12-24"
+  },
+  {
+   "number": "829",
+   "name": "Golden Olive Very Dark",
+   "rgb": [
+    126,
+    107,
+    66
+   ],
+   "hex": "#7E6B42",
+   "cardRow": "12-25"
+  },
+  {
+   "number": "613",
+   "name": "Drab Brown Very Light",
+   "rgb": [
+    220,
+    196,
+    170
+   ],
+   "hex": "#DCC4AA",
+   "cardRow": "13-01"
+  },
+  {
+   "number": "612",
+   "name": "Drab Brown Light",
+   "rgb": [
+    188,
+    154,
+    120
+   ],
+   "hex": "#BC9A78",
+   "cardRow": "13-02"
+  },
+  {
+   "number": "611",
+   "name": "Drab Brown",
+   "rgb": [
+    150,
+    118,
+    86
+   ],
+   "hex": "#967656",
+   "cardRow": "13-03"
+  },
+  {
+   "number": "610",
+   "name": "Drab Brown Dark",
+   "rgb": [
+    121,
+    96,
+    71
+   ],
+   "hex": "#796047",
+   "cardRow": "13-04"
+  },
+  {
+   "number": "3047",
+   "name": "Yellow Beige Light",
+   "rgb": [
+    231,
+    214,
+    193
+   ],
+   "hex": "#E7D6C1",
+   "cardRow": "13-05"
+  },
+  {
+   "number": "3046",
+   "name": "Yellow Beige Medium",
+   "rgb": [
+    216,
+    188,
+    154
+   ],
+   "hex": "#D8BC9A",
+   "cardRow": "13-06"
+  },
+  {
+   "number": "3045",
+   "name": "Yellow Beige Dark",
+   "rgb": [
+    188,
+    150,
+    106
+   ],
+   "hex": "#BC966A",
+   "cardRow": "13-07"
+  },
+  {
+   "number": "167",
+   "name": "Yellow Beige Very Dark",
+   "rgb": [
+    167,
+    124,
+    73
+   ],
+   "hex": "#A77C49",
+   "cardRow": "13-08"
+  },
+  {
+   "number": "746",
+   "name": "Off White",
+   "rgb": [
+    252,
+    252,
+    238
+   ],
+   "hex": "#FCFCEE",
+   "cardRow": "13-09"
+  },
+  {
+   "number": "677",
+   "name": "Old Gold Very Light",
+   "rgb": [
+    245,
+    236,
+    203
+   ],
+   "hex": "#F5ECCB",
+   "cardRow": "13-10"
+  },
+  {
+   "number": "422",
+   "name": "Hazelnut Brown Light",
+   "rgb": [
+    198,
+    159,
+    123
+   ],
+   "hex": "#C69F7B",
+   "cardRow": "13-11"
+  },
+  {
+   "number": "3828",
+   "name": "Hazelnut Brown",
+   "rgb": [
+    183,
+    139,
+    97
+   ],
+   "hex": "#B78B61",
+   "cardRow": "13-12"
+  },
+  {
+   "number": "420",
+   "name": "Hazelnut Brown Dark",
+   "rgb": [
+    160,
+    112,
+    66
+   ],
+   "hex": "#A07042",
+   "cardRow": "13-13"
+  },
+  {
+   "number": "869",
+   "name": "Hazelnut Brown Very Dark",
+   "rgb": [
+    131,
+    94,
+    57
+   ],
+   "hex": "#835E39",
+   "cardRow": "13-14"
+  },
+  {
+   "number": "728",
+   "name": "Topaz",
+   "rgb": [
+    228,
+    180,
+    104
+   ],
+   "hex": "#E4B468",
+   "cardRow": "13-15"
+  },
+  {
+   "number": "783",
+   "name": "Topaz Medium",
+   "rgb": [
+    206,
+    145,
+    36
+   ],
+   "hex": "#CE9124",
+   "cardRow": "13-16"
+  },
+  {
+   "number": "782",
+   "name": "Topaz Dark",
+   "rgb": [
+    174,
+    119,
+    32
+   ],
+   "hex": "#AE7720",
+   "cardRow": "13-17"
+  },
+  {
+   "number": "781",
+   "name": "Topaz Very Dark",
+   "rgb": [
+    162,
+    109,
+    32
+   ],
+   "hex": "#A26D20",
+   "cardRow": "13-18"
+  },
+  {
+   "number": "780",
+   "name": "Topaz Ultra Very Dark",
+   "rgb": [
+    148,
+    99,
+    26
+   ],
+   "hex": "#94631A",
+   "cardRow": "13-19"
+  },
+  {
+   "number": "676",
+   "name": "Old Gold Light",
+   "rgb": [
+    229,
+    206,
+    151
+   ],
+   "hex": "#E5CE97",
+   "cardRow": "13-20"
+  },
+  {
+   "number": "729",
+   "name": "Old Gold Medium",
+   "rgb": [
+    208,
+    165,
+    62
+   ],
+   "hex": "#D0A53E",
+   "cardRow": "13-21"
+  },
+  {
+   "number": "680",
+   "name": "Old Gold Dark",
+   "rgb": [
+    188,
+    141,
+    14
+   ],
+   "hex": "#BC8D0E",
+   "cardRow": "13-22"
+  },
+  {
+   "number": "3829",
+   "name": "Old Gold Very Dark",
+   "rgb": [
+    169,
+    130,
+    4
+   ],
+   "hex": "#A98204",
+   "cardRow": "13-23"
+  },
+  {
+   "number": "3822",
+   "name": "Straw Light",
+   "rgb": [
+    246,
+    220,
+    152
+   ],
+   "hex": "#F6DC98",
+   "cardRow": "13-24"
+  },
+  {
+   "number": "3821",
+   "name": "Straw",
+   "rgb": [
+    243,
+    206,
+    117
+   ],
+   "hex": "#F3CE75",
+   "cardRow": "13-25"
+  },
+  {
+   "number": "3820",
+   "name": "Straw Dark",
+   "rgb": [
+    223,
+    182,
+    95
+   ],
+   "hex": "#DFB65F",
+   "cardRow": "13-26"
+  },
+  {
+   "number": "3852",
+   "name": "Straw Very Dark",
+   "rgb": [
+    205,
+    157,
+    55
+   ],
+   "hex": "#CD9D37",
+   "cardRow": "13-27"
+  },
+  {
+   "number": "445",
+   "name": "Lemon Light",
+   "rgb": [
+    255,
+    251,
+    139
+   ],
+   "hex": "#FFFB8B",
+   "cardRow": "14-01"
+  },
+  {
+   "number": "307",
+   "name": "Lemon",
+   "rgb": [
+    253,
+    237,
+    84
+   ],
+   "hex": "#FDED54",
+   "cardRow": "14-02"
+  },
+  {
+   "number": "973",
+   "name": "Canary Bright",
+   "rgb": [
+    255,
+    227,
+    0
+   ],
+   "hex": "#FFE300",
+   "cardRow": "14-03"
+  },
+  {
+   "number": "444",
+   "name": "Lemon Dark",
+   "rgb": [
+    255,
+    214,
+    0
+   ],
+   "hex": "#FFD600",
+   "cardRow": "14-04"
+  },
+  {
+   "number": "3078",
+   "name": "Golden Yellow Very Light",
+   "rgb": [
+    253,
+    249,
+    205
+   ],
+   "hex": "#FDF9CD",
+   "cardRow": "14-05"
+  },
+  {
+   "number": "727",
+   "name": "Topaz Very Light",
+   "rgb": [
+    255,
+    241,
+    175
+   ],
+   "hex": "#FFF1AF",
+   "cardRow": "14-06"
+  },
+  {
+   "number": "726",
+   "name": "Topaz Light",
+   "rgb": [
+    253,
+    215,
+    85
+   ],
+   "hex": "#FDD755",
+   "cardRow": "14-07"
+  },
+  {
+   "number": "725",
+   "name": "Topaz Medium Light",
+   "rgb": [
+    255,
+    200,
+    64
+   ],
+   "hex": "#FFC840",
+   "cardRow": "14-08"
+  },
+  {
+   "number": "972",
+   "name": "Canary Deep",
+   "rgb": [
+    255,
+    181,
+    21
+   ],
+   "hex": "#FFB515",
+   "cardRow": "14-09"
+  },
+  {
+   "number": "745",
+   "name": "Yellow Pale Light",
+   "rgb": [
+    255,
+    233,
+    173
+   ],
+   "hex": "#FFE9AD",
+   "cardRow": "14-10"
+  },
+  {
+   "number": "744",
+   "name": "Yellow Pale",
+   "rgb": [
+    255,
+    231,
+    147
+   ],
+   "hex": "#FFE793",
+   "cardRow": "14-11"
+  },
+  {
+   "number": "743",
+   "name": "Yellow Medium",
+   "rgb": [
+    254,
+    211,
+    118
+   ],
+   "hex": "#FED376",
+   "cardRow": "14-12"
+  },
+  {
+   "number": "742",
+   "name": "Tangerine Light",
+   "rgb": [
+    255,
+    191,
+    87
+   ],
+   "hex": "#FFBF57",
+   "cardRow": "14-13"
+  },
+  {
+   "number": "741",
+   "name": "Tangerine Medium",
+   "rgb": [
+    255,
+    163,
+    43
+   ],
+   "hex": "#FFA32B",
+   "cardRow": "14-14"
+  },
+  {
+   "number": "740",
+   "name": "Tangerine",
+   "rgb": [
+    255,
+    139,
+    0
+   ],
+   "hex": "#FF8B00",
+   "cardRow": "14-15"
+  },
+  {
+   "number": "970",
+   "name": "Pumpkin Light",
+   "rgb": [
+    247,
+    139,
+    19
+   ],
+   "hex": "#F78B13",
+   "cardRow": "14-16"
+  },
+  {
+   "number": "971",
+   "name": "Pumpkin",
+   "rgb": [
+    246,
+    127,
+    0
+   ],
+   "hex": "#F67F00",
+   "cardRow": "14-17"
+  },
+  {
+   "number": "947",
+   "name": "Burnt Orange",
+   "rgb": [
+    255,
+    123,
+    77
+   ],
+   "hex": "#FF7B4D",
+   "cardRow": "14-18"
+  },
+  {
+   "number": "946",
+   "name": "Burnt Orange Medium",
+   "rgb": [
+    235,
+    99,
+    7
+   ],
+   "hex": "#EB6307",
+   "cardRow": "14-19"
+  },
+  {
+   "number": "900",
+   "name": "Burnt Orange Dark",
+   "rgb": [
+    209,
+    88,
+    7
+   ],
+   "hex": "#D15807",
+   "cardRow": "14-20"
+  },
+  {
+   "number": "967",
+   "name": "Apricot Very Light",
+   "rgb": [
+    255,
+    222,
+    213
+   ],
+   "hex": "#FFDED5",
+   "cardRow": "14-21"
+  },
+  {
+   "number": "3824",
+   "name": "Apricot Light",
+   "rgb": [
+    254,
+    205,
+    194
+   ],
+   "hex": "#FECDC2",
+   "cardRow": "14-22"
+  },
+  {
+   "number": "3341",
+   "name": "Apricot",
+   "rgb": [
+    252,
+    171,
+    152
+   ],
+   "hex": "#FCAB98",
+   "cardRow": "14-23"
+  },
+  {
+   "number": "3340",
+   "name": "Apricot Medium",
+   "rgb": [
+    255,
+    131,
+    111
+   ],
+   "hex": "#FF836F",
+   "cardRow": "14-24"
+  },
+  {
+   "number": "608",
+   "name": "Bright Orange",
+   "rgb": [
+    253,
+    93,
+    53
+   ],
+   "hex": "#FD5D35",
+   "cardRow": "14-25"
+  },
+  {
+   "number": "606",
+   "name": "Orange Red Bright",
+   "rgb": [
+    250,
+    50,
+    3
+   ],
+   "hex": "#FA3203",
+   "cardRow": "14-26"
+  },
+  {
+   "number": "951",
+   "name": "Tawny Light",
+   "rgb": [
+    255,
+    226,
+    207
+   ],
+   "hex": "#FFE2CF",
+   "cardRow": "15-01"
+  },
+  {
+   "number": "3856",
+   "name": "Mahogany Ultra Very Light",
+   "rgb": [
+    255,
+    211,
+    181
+   ],
+   "hex": "#FFD3B5",
+   "cardRow": "15-02"
+  },
+  {
+   "number": "722",
+   "name": "Orange Spice Light",
+   "rgb": [
+    247,
+    151,
+    111
+   ],
+   "hex": "#F7976F",
+   "cardRow": "15-03"
+  },
+  {
+   "number": "721",
+   "name": "Orange Spice Medium",
+   "rgb": [
+    242,
+    120,
+    66
+   ],
+   "hex": "#F27842",
+   "cardRow": "15-04"
+  },
+  {
+   "number": "720",
+   "name": "Orange Spice Dark",
+   "rgb": [
+    229,
+    92,
+    31
+   ],
+   "hex": "#E55C1F",
+   "cardRow": "15-05"
+  },
+  {
+   "number": "3825",
+   "name": "Pumpkin Pale",
+   "rgb": [
+    253,
+    189,
+    150
+   ],
+   "hex": "#FDBD96",
+   "cardRow": "15-06"
+  },
+  {
+   "number": "922",
+   "name": "Copper Light",
+   "rgb": [
+    226,
+    115,
+    35
+   ],
+   "hex": "#E27323",
+   "cardRow": "15-07"
+  },
+  {
+   "number": "921",
+   "name": "Copper",
+   "rgb": [
+    198,
+    98,
+    24
+   ],
+   "hex": "#C66218",
+   "cardRow": "15-08"
+  },
+  {
+   "number": "920",
+   "name": "Copper Medium",
+   "rgb": [
+    172,
+    84,
+    20
+   ],
+   "hex": "#AC5414",
+   "cardRow": "15-09"
+  },
+  {
+   "number": "919",
+   "name": "Red Copper",
+   "rgb": [
+    166,
+    69,
+    16
+   ],
+   "hex": "#A64510",
+   "cardRow": "15-10"
+  },
+  {
+   "number": "918",
+   "name": "Red Copper Dark",
+   "rgb": [
+    130,
+    52,
+    10
+   ],
+   "hex": "#82340A",
+   "cardRow": "15-11"
+  },
+  {
+   "number": "3770",
+   "name": "Tawny Very Light",
+   "rgb": [
+    255,
+    238,
+    227
+   ],
+   "hex": "#FFEEE3",
+   "cardRow": "15-12"
+  },
+  {
+   "number": "945",
+   "name": "Tawny",
+   "rgb": [
+    251,
+    213,
+    187
+   ],
+   "hex": "#FBD5BB",
+   "cardRow": "15-13"
+  },
+  {
+   "number": "402",
+   "name": "Mahogany Very Light",
+   "rgb": [
+    247,
+    167,
+    119
+   ],
+   "hex": "#F7A777",
+   "cardRow": "15-14"
+  },
+  {
+   "number": "3776",
+   "name": "Mahogany Light",
+   "rgb": [
+    207,
+    121,
+    57
+   ],
+   "hex": "#CF7939",
+   "cardRow": "15-15"
+  },
+  {
+   "number": "301",
+   "name": "Mahogany Medium",
+   "rgb": [
+    179,
+    95,
+    43
+   ],
+   "hex": "#B35F2B",
+   "cardRow": "15-16"
+  },
+  {
+   "number": "400",
+   "name": "Mahogany Dark",
+   "rgb": [
+    143,
+    67,
+    15
+   ],
+   "hex": "#8F430F",
+   "cardRow": "15-17"
+  },
+  {
+   "number": "300",
+   "name": "Mahogany Very Dark",
+   "rgb": [
+    111,
+    47,
+    0
+   ],
+   "hex": "#6F2F00",
+   "cardRow": "15-18"
+  },
+  {
+   "number": "3823",
+   "name": "Yellow Ultra Pale",
+   "rgb": [
+    255,
+    253,
+    227
+   ],
+   "hex": "#FFFDE3",
+   "cardRow": "15-19"
+  },
+  {
+   "number": "3855",
+   "name": "Autumn Gold Light",
+   "rgb": [
+    250,
+    211,
+    150
+   ],
+   "hex": "#FAD396",
+   "cardRow": "15-20"
+  },
+  {
+   "number": "3854",
+   "name": "Autumn Gold Medium",
+   "rgb": [
+    242,
+    175,
+    104
+   ],
+   "hex": "#F2AF68",
+   "cardRow": "15-21"
+  },
+  {
+   "number": "3853",
+   "name": "Autumn Gold Dark",
+   "rgb": [
+    242,
+    151,
+    70
+   ],
+   "hex": "#F29746",
+   "cardRow": "15-22"
+  },
+  {
+   "number": "3827",
+   "name": "Golden Brown Pale",
+   "rgb": [
+    247,
+    187,
+    119
+   ],
+   "hex": "#F7BB77",
+   "cardRow": "16-01"
+  },
+  {
+   "number": "977",
+   "name": "Golden Brown Light",
+   "rgb": [
+    220,
+    156,
+    86
+   ],
+   "hex": "#DC9C56",
+   "cardRow": "16-02"
+  },
+  {
+   "number": "976",
+   "name": "Golden Brown Medium",
+   "rgb": [
+    194,
+    129,
+    66
+   ],
+   "hex": "#C28142",
+   "cardRow": "16-03"
+  },
+  {
+   "number": "3826",
+   "name": "Golden Brown",
+   "rgb": [
+    173,
+    114,
+    57
+   ],
+   "hex": "#AD7239",
+   "cardRow": "16-04"
+  },
+  {
+   "number": "975",
+   "name": "Golden Brown Dark",
+   "rgb": [
+    145,
+    79,
+    18
+   ],
+   "hex": "#914F12",
+   "cardRow": "16-05"
+  },
+  {
+   "number": "948",
+   "name": "Peach Very Light",
+   "rgb": [
+    254,
+    231,
+    218
+   ],
+   "hex": "#FEE7DA",
+   "cardRow": "16-06"
+  },
+  {
+   "number": "754",
+   "name": "Peach Light",
+   "rgb": [
+    247,
+    203,
+    191
+   ],
+   "hex": "#F7CBBF",
+   "cardRow": "16-07"
+  },
+  {
+   "number": "3771",
+   "name": "Terra Cotta Ultra Very Light",
+   "rgb": [
+    244,
+    187,
+    169
+   ],
+   "hex": "#F4BBA9",
+   "cardRow": "16-08"
+  },
+  {
+   "number": "758",
+   "name": "Terra Cotta Very Light",
+   "rgb": [
+    238,
+    170,
+    155
+   ],
+   "hex": "#EEAA9B",
+   "cardRow": "16-09"
+  },
+  {
+   "number": "3778",
+   "name": "Terra Cotta Light",
+   "rgb": [
+    217,
+    137,
+    120
+   ],
+   "hex": "#D98978",
+   "cardRow": "16-10"
+  },
+  {
+   "number": "356",
+   "name": "Terra Cotta Medium",
+   "rgb": [
+    197,
+    106,
+    91
+   ],
+   "hex": "#C56A5B",
+   "cardRow": "16-11"
+  },
+  {
+   "number": "3830",
+   "name": "Terra Cotta",
+   "rgb": [
+    185,
+    85,
+    68
+   ],
+   "hex": "#B95544",
+   "cardRow": "16-12"
+  },
+  {
+   "number": "355",
+   "name": "Terra Cotta Dark",
+   "rgb": [
+    152,
+    68,
+    54
+   ],
+   "hex": "#984436",
+   "cardRow": "16-13"
+  },
+  {
+   "number": "3777",
+   "name": "Terra Cotta Very Dark",
+   "rgb": [
+    134,
+    48,
+    34
+   ],
+   "hex": "#863022",
+   "cardRow": "16-14"
+  },
+  {
+   "number": "3779",
+   "name": "Rosewood Ultra Very Light",
+   "rgb": [
+    248,
+    202,
+    200
+   ],
+   "hex": "#F8CAC8",
+   "cardRow": "16-15"
+  },
+  {
+   "number": "3859",
+   "name": "Rosewood Light",
+   "rgb": [
+    186,
+    139,
+    124
+   ],
+   "hex": "#BA8B7C",
+   "cardRow": "16-16"
+  },
+  {
+   "number": "3858",
+   "name": "Rosewood Medium",
+   "rgb": [
+    150,
+    74,
+    63
+   ],
+   "hex": "#964A3F",
+   "cardRow": "16-17"
+  },
+  {
+   "number": "3857",
+   "name": "Rosewood Dark",
+   "rgb": [
+    104,
+    37,
+    26
+   ],
+   "hex": "#68251A",
+   "cardRow": "16-18"
+  },
+  {
+   "number": "3774",
+   "name": "Desert Sand Very Light",
+   "rgb": [
+    243,
+    225,
+    215
+   ],
+   "hex": "#F3E1D7",
+   "cardRow": "16-19"
+  },
+  {
+   "number": "950",
+   "name": "Desert Sand Light",
+   "rgb": [
+    238,
+    211,
+    196
+   ],
+   "hex": "#EED3C4",
+   "cardRow": "16-20"
+  },
+  {
+   "number": "3064",
+   "name": "Desert Sand",
+   "rgb": [
+    196,
+    142,
+    112
+   ],
+   "hex": "#C48E70",
+   "cardRow": "16-21"
+  },
+  {
+   "number": "407",
+   "name": "Desert Sand Dark",
+   "rgb": [
+    187,
+    129,
+    97
+   ],
+   "hex": "#BB8161",
+   "cardRow": "16-22"
+  },
+  {
+   "number": "3773",
+   "name": "Desert Sand Medium",
+   "rgb": [
+    182,
+    117,
+    82
+   ],
+   "hex": "#B67552",
+   "cardRow": "16-23"
+  },
+  {
+   "number": "3772",
+   "name": "Desert Sand Very Dark",
+   "rgb": [
+    160,
+    108,
+    80
+   ],
+   "hex": "#A06C50",
+   "cardRow": "16-24"
+  },
+  {
+   "number": "632",
+   "name": "Desert Sand Ultra Very Dark",
+   "rgb": [
+    135,
+    85,
+    57
+   ],
+   "hex": "#875539",
+   "cardRow": "16-25"
+  },
+  {
+   "number": "453",
+   "name": "Shell Gray Light",
+   "rgb": [
+    215,
+    206,
+    203
+   ],
+   "hex": "#D7CECB",
+   "cardRow": "17-01"
+  },
+  {
+   "number": "452",
+   "name": "Shell Gray Medium",
+   "rgb": [
+    192,
+    179,
+    174
+   ],
+   "hex": "#C0B3AE",
+   "cardRow": "17-02"
+  },
+  {
+   "number": "451",
+   "name": "Shell Gray Dark",
+   "rgb": [
+    145,
+    123,
+    115
+   ],
+   "hex": "#917B73",
+   "cardRow": "17-03"
+  },
+  {
+   "number": "3861",
+   "name": "Cocoa Light",
+   "rgb": [
+    166,
+    136,
+    129
+   ],
+   "hex": "#A68881",
+   "cardRow": "17-04"
+  },
+  {
+   "number": "3860",
+   "name": "Cocoa",
+   "rgb": [
+    125,
+    93,
+    87
+   ],
+   "hex": "#7D5D57",
+   "cardRow": "17-05"
+  },
+  {
+   "number": "779",
+   "name": "Cocoa Dark",
+   "rgb": [
+    98,
+    75,
+    69
+   ],
+   "hex": "#624B45",
+   "cardRow": "17-06"
+  },
+  {
+   "number": "712",
+   "name": "Cream",
+   "rgb": [
+    255,
+    251,
+    239
+   ],
+   "hex": "#FFFBEF",
+   "cardRow": "17-07"
+  },
+  {
+   "number": "739",
+   "name": "Tan Ultra Very Light",
+   "rgb": [
+    248,
+    228,
+    200
+   ],
+   "hex": "#F8E4C8",
+   "cardRow": "17-08"
+  },
+  {
+   "number": "738",
+   "name": "Tan Very Light",
+   "rgb": [
+    236,
+    204,
+    158
+   ],
+   "hex": "#ECCC9E",
+   "cardRow": "17-09"
+  },
+  {
+   "number": "437",
+   "name": "Tan Light",
+   "rgb": [
+    228,
+    187,
+    142
+   ],
+   "hex": "#E4BB8E",
+   "cardRow": "17-10"
+  },
+  {
+   "number": "436",
+   "name": "Tan",
+   "rgb": [
+    203,
+    144,
+    81
+   ],
+   "hex": "#CB9051",
+   "cardRow": "17-11"
+  },
+  {
+   "number": "435",
+   "name": "Brown Very Light",
+   "rgb": [
+    184,
+    119,
+    72
+   ],
+   "hex": "#B87748",
+   "cardRow": "17-12"
+  },
+  {
+   "number": "434",
+   "name": "Brown Light",
+   "rgb": [
+    152,
+    94,
+    51
+   ],
+   "hex": "#985E33",
+   "cardRow": "17-13"
+  },
+  {
+   "number": "433",
+   "name": "Brown Medium",
+   "rgb": [
+    122,
+    69,
+    31
+   ],
+   "hex": "#7A451F",
+   "cardRow": "17-14"
+  },
+  {
+   "number": "801",
+   "name": "Coffee Brown Dark",
+   "rgb": [
+    101,
+    57,
+    25
+   ],
+   "hex": "#653919",
+   "cardRow": "17-15"
+  },
+  {
+   "number": "898",
+   "name": "Coffee Brown Very Dark",
+   "rgb": [
+    73,
+    42,
+    19
+   ],
+   "hex": "#492A13",
+   "cardRow": "17-16"
+  },
+  {
+   "number": "938",
+   "name": "Coffee Brown Ultra Dark",
+   "rgb": [
+    54,
+    31,
+    14
+   ],
+   "hex": "#361F0E",
+   "cardRow": "17-17"
+  },
+  {
+   "number": "3371",
+   "name": "Black Brown",
+   "rgb": [
+    30,
+    17,
+    8
+   ],
+   "hex": "#1E1108",
+   "cardRow": "17-18"
+  },
+  {
+   "number": "543",
+   "name": "Beige Brown Ultra Very Light",
+   "rgb": [
+    242,
+    227,
+    206
+   ],
+   "hex": "#F2E3CE",
+   "cardRow": "17-18"
+  },
+  {
+   "number": "3864",
+   "name": "Mocha Beige Light",
+   "rgb": [
+    203,
+    182,
+    156
+   ],
+   "hex": "#CBB69C",
+   "cardRow": "17-20"
+  },
+  {
+   "number": "3863",
+   "name": "Mocha Beige Medium",
+   "rgb": [
+    164,
+    131,
+    92
+   ],
+   "hex": "#A4835C",
+   "cardRow": "17-21"
+  },
+  {
+   "number": "3862",
+   "name": "Mocha Beige Dark",
+   "rgb": [
+    138,
+    110,
+    78
+   ],
+   "hex": "#8A6E4E",
+   "cardRow": "17-22"
+  },
+  {
+   "number": "3031",
+   "name": "Mocha Brown Very Dark",
+   "rgb": [
+    75,
+    60,
+    42
+   ],
+   "hex": "#4B3C2A",
+   "cardRow": "17-23"
+  },
+  {
+   "number": "B5200",
+   "name": "Snow White",
+   "rgb": [
+    255,
+    255,
+    255
+   ],
+   "hex": "#FFFFFF",
+   "cardRow": "18-01"
+  },
+  {
+   "number": "White",
+   "name": "White",
+   "rgb": [
+    252,
+    251,
+    248
+   ],
+   "hex": "#FCFBF8",
+   "cardRow": "18-02"
+  },
+  {
+   "number": "3865",
+   "name": "Winter White",
+   "rgb": [
+    249,
+    247,
+    241
+   ],
+   "hex": "#F9F7F1",
+   "cardRow": "18-03"
+  },
+  {
+   "number": "Ecru",
+   "name": "Ecru",
+   "rgb": [
+    240,
+    234,
+    218
+   ],
+   "hex": "#F0EADA",
+   "cardRow": "18-04"
+  },
+  {
+   "number": "822",
+   "name": "Beige Gray Light",
+   "rgb": [
+    231,
+    226,
+    211
+   ],
+   "hex": "#E7E2D3",
+   "cardRow": "18-05"
+  },
+  {
+   "number": "644",
+   "name": "Beige Gray Medium",
+   "rgb": [
+    221,
+    216,
+    203
+   ],
+   "hex": "#DDD8CB",
+   "cardRow": "18-06"
+  },
+  {
+   "number": "642",
+   "name": "Beige Gray Dark",
+   "rgb": [
+    164,
+    152,
+    120
+   ],
+   "hex": "#A49878",
+   "cardRow": "18-07"
+  },
+  {
+   "number": "640",
+   "name": "Beige Gray Very Dark",
+   "rgb": [
+    133,
+    123,
+    97
+   ],
+   "hex": "#857B61",
+   "cardRow": "18-08"
+  },
+  {
+   "number": "3787",
+   "name": "Brown Gray Dark",
+   "rgb": [
+    98,
+    93,
+    80
+   ],
+   "hex": "#625D50",
+   "cardRow": "18-09"
+  },
+  {
+   "number": "3021",
+   "name": "Brown Gray Very Dark",
+   "rgb": [
+    79,
+    75,
+    65
+   ],
+   "hex": "#4F4B41",
+   "cardRow": "18-10"
+  },
+  {
+   "number": "3024",
+   "name": "Brown Gray Very Light",
+   "rgb": [
+    235,
+    234,
+    231
+   ],
+   "hex": "#EBEAE7",
+   "cardRow": "18-11"
+  },
+  {
+   "number": "3023",
+   "name": "Brown Gray Light",
+   "rgb": [
+    177,
+    170,
+    151
+   ],
+   "hex": "#B1AA97",
+   "cardRow": "18-12"
+  },
+  {
+   "number": "3022",
+   "name": "Brown Gray Medium",
+   "rgb": [
+    142,
+    144,
+    120
+   ],
+   "hex": "#8E9078",
+   "cardRow": "18-13"
+  },
+  {
+   "number": "535",
+   "name": "Ash Gray Very Light",
+   "rgb": [
+    99,
+    100,
+    88
+   ],
+   "hex": "#636458",
+   "cardRow": "18-14"
+  },
+  {
+   "number": "3033",
+   "name": "Mocha Brown Very Light",
+   "rgb": [
+    227,
+    216,
+    204
+   ],
+   "hex": "#E3D8CC",
+   "cardRow": "18-15"
+  },
+  {
+   "number": "3782",
+   "name": "Mocha Brown Light",
+   "rgb": [
+    210,
+    188,
+    166
+   ],
+   "hex": "#D2BCA6",
+   "cardRow": "18-16"
+  },
+  {
+   "number": "3032",
+   "name": "Mocha Brown Medium",
+   "rgb": [
+    179,
+    159,
+    139
+   ],
+   "hex": "#B39F8B",
+   "cardRow": "18-17"
+  },
+  {
+   "number": "3790",
+   "name": "Beige Gray Ultra Dark",
+   "rgb": [
+    127,
+    106,
+    85
+   ],
+   "hex": "#7F6A55",
+   "cardRow": "18-18"
+  },
+  {
+   "number": "3781",
+   "name": "Mocha Brown Dark",
+   "rgb": [
+    107,
+    87,
+    67
+   ],
+   "hex": "#6B5743",
+   "cardRow": "18-19"
+  },
+  {
+   "number": "3866",
+   "name": "Mocha Brown Ultra Very Light",
+   "rgb": [
+    250,
+    246,
+    240
+   ],
+   "hex": "#FAF6F0",
+   "cardRow": "18-20"
+  },
+  {
+   "number": "842",
+   "name": "Beige Brown Very Light",
+   "rgb": [
+    209,
+    186,
+    161
+   ],
+   "hex": "#D1BAA1",
+   "cardRow": "18-21"
+  },
+  {
+   "number": "841",
+   "name": "Beige Brown Light",
+   "rgb": [
+    182,
+    155,
+    126
+   ],
+   "hex": "#B69B7E",
+   "cardRow": "18-22"
+  },
+  {
+   "number": "840",
+   "name": "Beige Brown Medium",
+   "rgb": [
+    154,
+    124,
+    92
+   ],
+   "hex": "#9A7C5C",
+   "cardRow": "18-23"
+  },
+  {
+   "number": "839",
+   "name": "Beige Brown Dark",
+   "rgb": [
+    103,
+    85,
+    65
+   ],
+   "hex": "#675541",
+   "cardRow": "18-24"
+  },
+  {
+   "number": "838",
+   "name": "Beige Brown Very Dark",
+   "rgb": [
+    89,
+    73,
+    55
+   ],
+   "hex": "#594937",
+   "cardRow": "18-25"
+  },
+  {
+   "number": "3072",
+   "name": "Beaver Gray Very Light",
+   "rgb": [
+    230,
+    232,
+    232
+   ],
+   "hex": "#E6E8E8",
+   "cardRow": "19-01"
+  },
+  {
+   "number": "648",
+   "name": "Beaver Gray Light",
+   "rgb": [
+    188,
+    180,
+    172
+   ],
+   "hex": "#BCB4AC",
+   "cardRow": "19-02"
+  },
+  {
+   "number": "647",
+   "name": "Beaver Gray Medium",
+   "rgb": [
+    176,
+    166,
+    156
+   ],
+   "hex": "#B0A69C",
+   "cardRow": "19-03"
+  },
+  {
+   "number": "646",
+   "name": "Beaver Gray Dark",
+   "rgb": [
+    135,
+    125,
+    115
+   ],
+   "hex": "#877D73",
+   "cardRow": "19-04"
+  },
+  {
+   "number": "645",
+   "name": "Beaver Gray Very Dark",
+   "rgb": [
+    110,
+    101,
+    92
+   ],
+   "hex": "#6E655C",
+   "cardRow": "19-05"
+  },
+  {
+   "number": "844",
+   "name": "Beaver Gray Ultra Dark",
+   "rgb": [
+    72,
+    72,
+    72
+   ],
+   "hex": "#484848",
+   "cardRow": "19-06"
+  },
+  {
+   "number": "762",
+   "name": "Pearl Gray Very Light",
+   "rgb": [
+    236,
+    236,
+    236
+   ],
+   "hex": "#ECECEC",
+   "cardRow": "19-07"
+  },
+  {
+   "number": "415",
+   "name": "Pearl Gray",
+   "rgb": [
+    211,
+    211,
+    214
+   ],
+   "hex": "#D3D3D6",
+   "cardRow": "19-08"
+  },
+  {
+   "number": "318",
+   "name": "Steel Gray Light",
+   "rgb": [
+    171,
+    171,
+    171
+   ],
+   "hex": "#ABABAB",
+   "cardRow": "19-09"
+  },
+  {
+   "number": "414",
+   "name": "Steel Gray Dark",
+   "rgb": [
+    140,
+    140,
+    140
+   ],
+   "hex": "#8C8C8C",
+   "cardRow": "19-10"
+  },
+  {
+   "number": "168",
+   "name": "Pewter Very Light",
+   "rgb": [
+    209,
+    209,
+    209
+   ],
+   "hex": "#D1D1D1",
+   "cardRow": "19-11"
+  },
+  {
+   "number": "169",
+   "name": "Pewter Light",
+   "rgb": [
+    132,
+    132,
+    132
+   ],
+   "hex": "#848484",
+   "cardRow": "19-12"
+  },
+  {
+   "number": "317",
+   "name": "Pewter Gray",
+   "rgb": [
+    108,
+    108,
+    108
+   ],
+   "hex": "#6C6C6C",
+   "cardRow": "19-13"
+  },
+  {
+   "number": "413",
+   "name": "Pewter Gray Dark",
+   "rgb": [
+    86,
+    86,
+    86
+   ],
+   "hex": "#565656",
+   "cardRow": "19-14"
+  },
+  {
+   "number": "3799",
+   "name": "Pewter Gray Very Dark",
+   "rgb": [
+    66,
+    66,
+    66
+   ],
+   "hex": "#424242",
+   "cardRow": "19-15"
+  },
+  {
+   "number": "310",
+   "name": "Black",
+   "rgb": [
+    0,
+    0,
+    0
+   ],
+   "hex": "#000000",
+   "cardRow": "19-16"
+  }
+ ]
+}

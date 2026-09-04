@@ -1,0 +1,10 @@
+export * from './types';
+export * from './color';
+export { buildThreadLibrary } from './threads/library';
+export { getDmcLibrary } from './threads/dmc';
+export { nearestThread, nearestThreadIndex, rankThreads } from './threads/match';
+export { deriveEngineParams, DEFAULT_SETTINGS, DEFAULT_DIMENSIONS } from './embroidery/params';
+export { Pipeline, type PipelineRequest } from './pipeline';
+export { buildPatternSvg, outlineWidthMm, type SvgOptions } from './export/svg';
+export { buildThreadListText, buildThreadListCsv } from './export/threadList';
+export { workingResolution, croppedSourceSize } from './image/physical';
