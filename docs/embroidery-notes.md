@@ -22,7 +22,7 @@ for, or an open question (see 06).
   adjacency, not just area.
 * **Narrow shapes are traps.** A region thinner than two stitch widths
   cannot be filled with long-and-short; it becomes a line of stitches.
-  Needs a width test (V1).
+  → *Implemented:* the width test routes such regions to the line layer.
 * **Direction is content.** Fur, hair, and petals have flow; skin has planes.
   The data model reserves a per-region stitch guide for this.
 * **Blends are regions too.** A/B alternation zones are how needle painters
@@ -47,17 +47,27 @@ the engine:
 * **Sparse palette, flat fills.** Roughly eight threads: white, black, two
   reds, gold, olive, a pale skin tone, dark brown. Source art is
   illustration, not photography, so *Colour fidelity* high and *Thread
-  colours* around 8 is the right starting point. → *Open:* a "Flat art"
-  preset (no pre-blur, exact colour, hard edges).
+  colours* around 8 is the right starting point. → *Implemented:* the
+  "Flat art" preset (no pre-blur, no mode filter, no smoothing, sparse
+  palette, 8 threads).
 * **Line work rides on top of fills.** Wing veins, the text, and the star
   outlines are single-thread stem/back stitch drawn over satin or
   long-and-short. Our engine only knows fills; thin dark strokes either
   vanish (too narrow) or become garbage slivers. → *Open, V1:* a line layer:
   detect thin high-contrast strokes, emit them as stroked paths with a
   suggested stitch, and remove them from the fill before segmentation.
+  → *Implemented 2026-09-05:* `src/engine/lines/`. Strokes up to two stitch
+  widths are lifted before segmentation, inpainted out of the fills, and
+  emitted as stroked paths with a thread, width, and back/stem suggestion.
 * **Direction is visible in every fill.** The papillon's fur, the hair, and
   the wings all read as directional long stitches. Confirms the V2
   structure-tensor stitch-flow plan; for flat art a per-region "direction
   arrow" the artist sets by hand would already help.
 * **Lettering is a separate object.** Hand-lettered text is one stem-stitch
-  line; it should be exported as a path, not regions.
+  line; it should be exported as a path, not regions. → *Implemented* for
+  strokes up to two stitch widths; heavier lettering stays a fill with its
+  counters and corners preserved (counter rule, pinned corners).
+* **Anti-aliasing is not a colour.** A rasterised edge between two flat
+  fills is a one-pixel blend that nobody stitches; treated as its own thread
+  it becomes a rim around every letter. → *Implemented:* ramp mask, halo
+  dissolve, and ramp pixels assigned to a neighbouring flat colour.

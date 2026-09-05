@@ -1,6 +1,6 @@
 // Canonical SVG pattern document. Real geometry in millimetres, stable ids,
 // per-region metadata, and a legend. Editable in any vector tool.
-import type { Pattern, RegionGraph, ThreadColor, ThreadPalette } from '../types';
+import type { LineLayer, Pattern, Point, RegionGraph, ThreadColor, ThreadPalette } from '../types';
 
 export interface SvgOptions {
   mode: 'pattern' | 'color';
@@ -29,7 +29,12 @@ function tint(t: ThreadColor): string {
   return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
 }
 
-export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, effectiveThreads: ThreadColor[], pattern: Pattern, opts: SvgOptions): string {
+/** Open polylines as path data (for the line layer). */
+export function pathsToD(paths: Point[][]): string {
+  return paths.map((p) => p.map((q, i) => `${i === 0 ? 'M' : 'L'}${f2(q.x)} ${f2(q.y)}`).join('')).join('');
+}
+
+export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, effectiveThreads: ThreadColor[], pattern: Pattern, opts: SvgOptions, lines: LineLayer = { strokes: [] }): string {
   const W = pattern.widthMm;
   const H = pattern.heightMm;
   const legendW = opts.showLegend ? 58 : 0;
@@ -40,14 +45,15 @@ export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, eff
     : 0;
   const margin = 8 + Math.ceil(hoopOverhang);
   const docW = W + margin * 2 + legendW;
-  const docH = Math.max(H + margin * 2 + 10, opts.showLegend ? pattern.legend.length * 5.2 + margin * 2 + 6 : 0);
+  const legendRows = pattern.legend.length + (pattern.lineLegend.length ? pattern.lineLegend.length + 1 : 0);
+  const docH = Math.max(H + margin * 2 + 10, opts.showLegend ? legendRows * 5.2 + margin * 2 + 6 : 0);
   const stroke = outlineWidthMm(opts.outlineStrength);
   const s = pattern.mmPerPx;
   const parts: string[] = [];
   parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:np="https://needlepaint.app/ns/1" width="${f2(docW)}mm" height="${f2(docH)}mm" viewBox="0 0 ${f2(docW)} ${f2(docH)}" np:version="1">`);
   parts.push(`<title>${esc(opts.projectName)} — needle-painting pattern</title>`);
-  const meta = { project: opts.projectName, widthMm: W, heightMm: H, mmPerPx: s, mode: opts.mode, fabric: opts.fabricHex ?? null, legend: pattern.legend.map((l) => ({ index: l.index, dmc: l.thread.number, name: l.thread.name, hex: l.thread.hex, regions: l.regionCount, areaMm2: Math.round(l.areaMm2 * 10) / 10 })), estimates: pattern.estimates, ...(opts.metadata ?? {}) };
+  const meta = { project: opts.projectName, widthMm: W, heightMm: H, mmPerPx: s, mode: opts.mode, fabric: opts.fabricHex ?? null, legend: pattern.legend.map((l) => ({ index: l.index, dmc: l.thread.number, name: l.thread.name, hex: l.thread.hex, regions: l.regionCount, areaMm2: Math.round(l.areaMm2 * 10) / 10 })), lines: pattern.lineLegend.map((l) => ({ dmc: l.thread.number, name: l.thread.name, hex: l.thread.hex, stitch: l.stitch, strokes: l.strokeCount, lengthMm: Math.round(l.lengthMm * 10) / 10 })), estimates: pattern.estimates, ...(opts.metadata ?? {}) };
   parts.push(`<metadata><np:project>${esc(JSON.stringify(meta))}</np:project></metadata>`);
   parts.push(`<style>text{font-family:Helvetica,Arial,sans-serif;font-weight:600;text-anchor:middle;dominant-baseline:central;fill:#111}.legend text{text-anchor:start}</style>`);
   parts.push(`<rect width="${f2(docW)}" height="${f2(docH)}" fill="#fff"/>`);
@@ -65,6 +71,14 @@ export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, eff
     parts.push(`<path id="region-${r.id}" d="${r.pathD}" fill="${fill}" stroke="${st}" stroke-width="${f2(stroke / s)}" data-region="${r.id}" data-dmc="${esc(t.number)}" data-name="${esc(t.name)}" data-area-mm2="${f2(r.areaMm2)}" data-legend="${pattern.legend.find((l) => l.paletteIndex === r.paletteIndex)?.index ?? ''}"/>`);
   }
   parts.push(`</g>`);
+  if (lines.strokes.length) {
+    // Line work rides on top of the fills: real width, thread colour, one path per stroke.
+    parts.push(`<g id="lines" transform="scale(${s})" fill="none" stroke-linecap="round" stroke-linejoin="round">`);
+    for (const l of lines.strokes) {
+      parts.push(`<path id="line-${l.id}" d="${pathsToD(l.paths)}" stroke="${l.thread.hex}" stroke-width="${f2(Math.max(l.widthMm, 0.3) / s)}" data-line="${l.id}" data-dmc="${esc(l.thread.number)}" data-name="${esc(l.thread.name)}" data-stitch="${l.stitch}" data-width-mm="${f2(l.widthMm)}" data-length-mm="${f2(l.lengthMm)}"/>`);
+    }
+    parts.push(`</g>`);
+  }
   if (opts.showLabels && opts.mode === 'pattern') {
     parts.push(`<g id="labels">`);
     for (const l of pattern.labels) {
@@ -88,7 +102,7 @@ export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, eff
   const barLen = W >= 100 ? 50 : W >= 40 ? 20 : 10;
   const by = H + 5;
   parts.push(`<g id="scale"><line x1="0" y1="${f2(by)}" x2="${f2(barLen)}" y2="${f2(by)}" stroke="#111" stroke-width="0.25"/><line x1="0" y1="${f2(by - 1)}" x2="0" y2="${f2(by + 1)}" stroke="#111" stroke-width="0.25"/><line x1="${f2(barLen)}" y1="${f2(by - 1)}" x2="${f2(barLen)}" y2="${f2(by + 1)}" stroke="#111" stroke-width="0.25"/><text x="${f2(barLen / 2)}" y="${f2(by + 2.6)}" font-size="2.2">${barLen} mm</text>`);
-  parts.push(`<text x="${f2(W / 2)}" y="${f2(by + 2.6)}" font-size="2.2" style="font-weight:400">${f2(W)} × ${f2(H)} mm · ${graph.regions.length} regions · ${pattern.legend.length} colours${opts.fabricHex ? ` · fabric ${esc(opts.fabricHex)}` : ''}</text></g>`);
+  parts.push(`<text x="${f2(W / 2)}" y="${f2(by + 2.6)}" font-size="2.2" style="font-weight:400">${f2(W)} × ${f2(H)} mm · ${graph.regions.length} regions · ${pattern.legend.length} colours${lines.strokes.length ? ` · ${lines.strokes.length} lines` : ''}${opts.fabricHex ? ` · fabric ${esc(opts.fabricHex)}` : ''}</text></g>`);
   parts.push(`</g>`);
   if (opts.showLegend) {
     parts.push(`<g id="legend" class="legend" transform="translate(${f2(W + margin * 2)} ${margin})">`);
@@ -100,6 +114,16 @@ export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, eff
       parts.push(`<text x="10" y="${f2(y)}" font-size="2.1">DMC ${esc(row.thread.number)}</text>`);
       parts.push(`<text x="22" y="${f2(y)}" font-size="1.8" style="font-weight:400">${esc(row.thread.name)}</text>`);
     });
+    if (pattern.lineLegend.length) {
+      const y0 = 5 + pattern.legend.length * 5.2 + 2;
+      parts.push(`<text x="0" y="${f2(y0)}" font-size="2.2">Lines</text>`);
+      pattern.lineLegend.forEach((row, i) => {
+        const y = y0 + 5.2 + i * 5.2;
+        parts.push(`<line x1="0" y1="${f2(y)}" x2="4" y2="${f2(y)}" stroke="${row.thread.hex}" stroke-width="0.8" stroke-linecap="round"/>`);
+        parts.push(`<text x="5.5" y="${f2(y)}" font-size="2.1">DMC ${esc(row.thread.number)}</text>`);
+        parts.push(`<text x="19" y="${f2(y)}" font-size="1.8" style="font-weight:400">${row.stitch} stitch · ${Math.round(row.lengthMm)} mm</text>`);
+      });
+    }
     parts.push(`</g>`);
   }
   parts.push(`</svg>`);

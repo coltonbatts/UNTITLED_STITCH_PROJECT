@@ -35,8 +35,38 @@ export function simplifyPolyline(points: Point[], tolerance: number): Point[] {
   return out;
 }
 
-/** Chaikin corner cutting with endpoints pinned. Turns staircases into drawn curves. */
-export function chaikin(points: Point[], passes: number): Point[] {
+/** Interior turn angle at vertex i in degrees: 0 = straight on, 90 = right angle. */
+function turnDeg(points: Point[], i: number): number {
+  const ax = points[i].x - points[i - 1].x, ay = points[i].y - points[i - 1].y;
+  const bx = points[i + 1].x - points[i].x, by = points[i + 1].y - points[i].y;
+  const la = Math.hypot(ax, ay), lb = Math.hypot(bx, by);
+  if (la === 0 || lb === 0) return 0;
+  return (Math.acos(Math.max(-1, Math.min(1, (ax * bx + ay * by) / (la * lb)))) * 180) / Math.PI;
+}
+
+/**
+ * Chaikin corner cutting with endpoints pinned. Turns staircases into drawn
+ * curves. Vertices turning by at least `cornerAngleDeg` are real corners
+ * (serifs, box edges) and are pinned too; the default never pins.
+ */
+export function chaikin(points: Point[], passes: number, cornerAngleDeg = 181): Point[] {
+  if (cornerAngleDeg <= 180 && points.length > 2 && passes > 0) {
+    const out: Point[] = [];
+    let start = 0;
+    for (let i = 1; i < points.length; i++) {
+      const last = i === points.length - 1;
+      if (!last && turnDeg(points, i) < cornerAngleDeg) continue;
+      const piece = chaikinOpen(points.slice(start, i + 1), passes);
+      if (out.length) piece.shift();
+      out.push(...piece);
+      start = i;
+    }
+    return out;
+  }
+  return chaikinOpen(points, passes);
+}
+
+function chaikinOpen(points: Point[], passes: number): Point[] {
   let pts = points;
   for (let p = 0; p < passes; p++) {
     if (pts.length < 3) return pts;

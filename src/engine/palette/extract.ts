@@ -14,35 +14,44 @@ export interface ExtractOptions {
   sampleStride?: number;
   maxIterations?: number;
   seed?: number;
+  /** Sample weight for anti-aliased ramp pixels (default: treated like any other pixel). */
+  rampWeight?: number;
+  /** Dissolve a thread whose samples are mostly ramps (share above this). Default: never. */
+  haloMaxRampShare?: number;
 }
 
 interface Samples {
   lab: Float32Array; // 3 per sample
   w: Float32Array;
+  ramp: Uint8Array;
   count: number;
 }
 
-function collectSamples(img: WorkingImage, stride: number, contrastWeight: number): Samples {
+function collectSamples(img: WorkingImage, stride: number, contrastWeight: number, rampWeight: number | undefined): Samples {
   const n = img.width * img.height;
   const cap = Math.ceil(n / stride) + 1;
   const lab = new Float32Array(cap * 3);
   const w = new Float32Array(cap);
+  const ramp = new Uint8Array(cap);
   let count = 0;
   for (let i = 0; i < n; i += stride) {
     if (img.mask && img.mask[i] === 0) continue;
     lab[count * 3] = img.oklab[i * 3];
     lab[count * 3 + 1] = img.oklab[i * 3 + 1];
     lab[count * 3 + 2] = img.oklab[i * 3 + 2];
-    w[count] = 1 + contrastWeight * img.contrast[i];
+    const isRamp = img.ramp?.[i] === 1;
+    // A ramp pixel is a blend, not a colour: it must not pull a centroid. Small features keep their boost.
+    w[count] = isRamp && rampWeight !== undefined ? rampWeight : 1 + contrastWeight * img.contrast[i];
+    ramp[count] = isRamp ? 1 : 0;
     count++;
   }
-  return { lab, w, count };
+  return { lab, w, ramp, count };
 }
 
 export function extractPalette(img: WorkingImage, library: ThreadLibrary, opts: ExtractOptions): ThreadPalette {
   const stride = opts.sampleStride ?? Math.max(1, Math.floor((img.width * img.height) / 60000));
   const maxIter = opts.maxIterations ?? 24;
-  const s = collectSamples(img, stride, opts.contrastWeight);
+  const s = collectSamples(img, stride, opts.contrastWeight, opts.rampWeight);
   if (s.count === 0) return { entries: [] };
   const flat = library.oklabFlat;
 
@@ -127,11 +136,40 @@ export function extractPalette(img: WorkingImage, library: ThreadLibrary, opts: 
     }
   }
 
+  // Halo suppression: a thread whose pixels sit mostly on anti-aliased edges
+  // is the colour of a transition, not of anything in the picture. Dissolve it
+  // and let its pixels fall to the neighbouring flat colours.
+  const haloMax = opts.haloMaxRampShare ?? Infinity;
+  if (haloMax <= 1) {
+    const rampCount = new Int32Array(k), total = new Int32Array(k);
+    for (let i = 0; i < s.count; i++) { total[assign[i]]++; if (s.ramp[i]) rampCount[assign[i]]++; }
+    let dropped = false;
+    for (let j = 0; j < slotThread.length; j++) {
+      if (!alive[j] || slotLocked[j] || total[j] === 0) continue;
+      if (rampCount[j] / total[j] > haloMax) { alive[j] = false; used.delete(slotThread[j]); dropped = true; }
+    }
+    if (dropped) {
+      for (let i = 0; i < s.count; i++) {
+        const L = s.lab[i * 3], a = s.lab[i * 3 + 1], b = s.lab[i * 3 + 2];
+        let best = -1, bestD = Infinity;
+        for (let j = 0; j < slotThread.length; j++) {
+          if (!alive[j]) continue;
+          const t = slotThread[j];
+          const dL = flat[t * 3] - L, da = flat[t * 3 + 1] - a, db = flat[t * 3 + 2] - b;
+          const d = dL * dL + da * da + db * db;
+          if (d < bestD) { bestD = d; best = j; }
+        }
+        assign[i] = best;
+      }
+    }
+  }
+
   // Final statistics per slot.
   sumL.fill(0); sumA.fill(0); sumB.fill(0); sumW.fill(0);
   let totalW = 0;
   for (let i = 0; i < s.count; i++) {
     const j = assign[i];
+    if (j < 0) continue;
     const w = s.w[i];
     sumL[j] += s.lab[i * 3] * w; sumA[j] += s.lab[i * 3 + 1] * w; sumB[j] += s.lab[i * 3 + 2] * w; sumW[j] += w;
     totalW += w;

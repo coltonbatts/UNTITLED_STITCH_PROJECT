@@ -18,9 +18,11 @@ Things we cannot settle from a desk. Each needs stitched samples.
 
 4. **Minimum region size that is actually stitchable** depends on strand
    count and the artist. Our default (2–3 mm² at 1 strand) is a guess.
-5. **Narrow regions.** A 0.6 mm wide, 20 mm long region passes an area test
-   but is a single row of stitches. We need a width test (distance-transform
-   maximum below a threshold), not just area.
+5. **Narrow regions.** Implemented as the width test (two stitch widths at
+   the current strand count, from a table of guessed stitch widths: 0.4 mm
+   at one strand, 0.6 at two, 0.8 at three, 1.2 at six). Open: whether those
+   widths are right, and whether a *low-contrast* thin sliver should also be
+   lifted or merged rather than left to the area rule as it is now.
 6. **Islands inside islands.** The pattern draws them; does an artist want
    the enclosing region drawn as a ring, or filled and over-stitched?
 7. **Fur direction.** Structure-tensor orientation is a well-known
@@ -47,6 +49,39 @@ Things we cannot settle from a desk. Each needs stitched samples.
     but also shaves 0.25 mm off every subject edge at 4 px/mm. Probably
     invisible in thread; verify.
 
+## Flat art and lettering
+
+16. **Strokes that differ in hue but not lightness** (red text on an
+    equally light green) are invisible to the line detector, which works on
+    L only. A chroma-aware top-hat is possible but was not needed by the
+    samples we have.
+17. **Small dense glyphs.** A figure "8" three millimetres tall has counters
+    the closing fills, so the whole glyph is one blob wider than a line and
+    falls back to the fill path, where it becomes a few tiny regions. Text
+    below about 4 mm x-height is unstitchable either way; the question is
+    whether the pattern should mark it "lettering, freehand" rather than
+    draw the fragments.
+18. **Anti-aliased small text is grey, not black.** A 2 px stroke rendered
+    by a rasteriser rarely contains a fully-dark pixel, so lifted strokes
+    from small captions snap to a grey thread. We snap to a palette thread
+    within ΔE 0.2 and take the response-weighted core colour; a stroke still
+    reads lighter than the artist drew it. Perhaps line colour should default
+    to the darkest palette thread on the stroke's side of the ground.
+19. **Textured grounds split into two threads.** Paper texture of ±5/255
+    spans 0.035 in L, and the DMC set has browns 0.037 apart, so k-means
+    with spare slots splits a flat ground in two. The flat preset merges
+    threads closer than 0.05–0.16 (by *Colour fidelity*), which folds these
+    back together but also loses a deliberate pair of close tones. A
+    statistical merge (cluster overlap rather than thread distance) would be
+    better and is not written.
+20. **Short strokes on photographs.** At default settings the retriever
+    grows eleven lines of 1.5–6 mm (whisker-sized). Whether an artist wants
+    a 2 mm back stitch called out, or a minimum line length nearer 4 mm, is
+    a stitched-sample question. The minimum is 1.5 mm.
+21. **Line stitch suggestion** is a width rule only (back stitch up to about
+    1.25 stitch widths, stem beyond). Real choice depends on curvature and
+    on what the line sits on.
+
 ## Technical
 
 11. **Working resolution.** 4 px/mm is enough for 1 mm features; is it too
@@ -56,6 +91,33 @@ Things we cannot settle from a desk. Each needs stitched samples.
     0xFFFF and excluded, but the UI for masking does not exist yet.
 13. **Very large palettes (40) with small images** converge slowly; cap
     iterations and document.
+
+## Measured when the line layer and halo suppression landed (2026-09-05)
+
+Sample retriever at defaults, decoded to BMP with `sips` and run through
+`scripts/bench-retriever.ts` (the browser decodes the JPEG slightly
+differently, so its numbers differ: 210 regions, 15 threads there).
+
+| | before | after |
+|---|---|---|
+| regions | 186 | 192 |
+| threads | 15 | 14 |
+| lines | 0 | 11 (1.5–6 mm) |
+| mean ΔE, raw assignment | 0.036 | 0.042 |
+| mean ΔE, cleaned map | 0.061 | 0.063 |
+| prepare stage | 180 ms | ~250 ms |
+
+Eight of the fifteen threads survived unchanged; the rest moved to
+neighbouring DMC numbers. The raw error rises because ramp pixels now take a
+neighbouring flat colour instead of their own best fit, which is the point;
+the cleaned error, which is what gets stitched, is within noise.
+
+Synthetic flat art (`tests/fixtures.ts`, `textArtRaster`) and a canvas-drawn
+VHS label in the browser: strokes of 2–3 px come out as lines with length
+within 2 % and width within 0.3 px; counters in O and 8 survive; the
+red/blue edge produces no third thread; specks vanish; serif corners stay
+within a pixel. A 22 px caption (1.7 mm x-height at 150 mm) comes out as
+grey back-stitch lines, legible in places, see 17 and 18.
 
 ## Observed on the sample retriever (150 mm, 16 threads, defaults)
 

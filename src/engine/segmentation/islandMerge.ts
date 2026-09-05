@@ -39,9 +39,22 @@ function mergePass(labels: Uint16Array, width: number, height: number, opts: Isl
   const label = new Uint16Array(cc.label);
   let changed = 0;
   const keepFloor = Math.max(1, Math.floor(minAreaPx / 4));
+  const holeFloor = Math.max(2, Math.floor(minAreaPx / 16));
   for (const c of order) {
     if (cc.area[c] >= minAreaPx) break;
     if (find(c) !== c || area[c] >= minAreaPx) continue;
+    // The counter rule: an island with a single neighbour, coloured like
+    // something that neighbour also touches, is a hole through it (the inside
+    // of an O, the loops of an 8). Topology, not area, decides.
+    if (cc.area[c] >= holeFloor && adj.start[c + 1] - adj.start[c] === 1) {
+      const ring = adj.ids[adj.start[c]];
+      let hole = false;
+      for (let p = adj.start[ring]; p < adj.start[ring + 1] && !hole; p++) {
+        const m = adj.ids[p];
+        if (m !== c && cc.label[m] === cc.label[c]) hole = true;
+      }
+      if (hole) continue;
+    }
     const myColor = opts.labelColors[label[c]];
     let best = -1, bestScore = -Infinity, minDe = Infinity;
     for (let p = adj.start[c]; p < adj.start[c + 1]; p++) {

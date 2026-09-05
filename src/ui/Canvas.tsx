@@ -12,6 +12,24 @@ import { cropRotate } from '@/engine/image/resample';
 import { croppedSourceSize } from '@/engine/image/physical';
 import { outlineWidthMm } from '@/engine/export/svg';
 import { effectiveThreads, fmtMm, paintLabels } from './viewModel';
+import { pathsToD } from '@/engine/export/svg';
+import type { LineLayer } from '@/engine/types';
+
+/** Stem/back-stitch strokes drawn over the fills at their real width. */
+function LineLayerSvg({ lines, mmPerPx, width, height, muted }: { lines: LineLayer; mmPerPx: number; width: number; height: number; muted?: boolean }) {
+  if (lines.strokes.length === 0) return null;
+  return (
+    <svg className="vec lines" width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ pointerEvents: 'none' }}>
+      <g fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={muted ? 0.9 : 1}>
+        {lines.strokes.map((l) => (
+          <path key={l.id} d={pathsToD(l.paths)} stroke={l.thread.hex} strokeWidth={Math.max(l.widthMm, 0.3) / mmPerPx}>
+            <title>{`Line · DMC ${l.thread.number} · ${l.stitch} stitch · ${l.widthMm.toFixed(2)} mm wide · ${Math.round(l.lengthMm)} mm`}</title>
+          </path>
+        ))}
+      </g>
+    </svg>
+  );
+}
 
 function useCanvasPaint(width: number, height: number, paint: ((ctx: CanvasRenderingContext2D) => void) | null) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -140,6 +158,9 @@ export function Canvas() {
                   onClick={() => setView({ selectedThread: result.palette.entries[r.paletteIndex].thread.number })} />;
               })}
             </g>
+            {result.lines.strokes.length > 0 && <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+              {result.lines.strokes.map((l) => <path key={l.id} d={pathsToD(l.paths)} stroke={view.tintRegions ? l.thread.hex : '#1a1a1a'} strokeWidth={Math.max(l.widthMm, 0.3) / mmPerPx} />)}
+            </g>}
             {view.showLabels && <g transform={`scale(${1 / mmPerPx})`}>
               {result.pattern.labels.map((l) => l.tier === 'none' ? null : (
                 <g key={l.regionId}>
@@ -160,6 +181,7 @@ export function Canvas() {
         {fabric && (view.mode === 'threads' || view.mode === 'regions') && !view.compare && <div style={{ width: base.w, height: base.h, background: fabric }} aria-hidden />}
         {view.mode === 'threads' && !view.compare && <canvas ref={rawRef} width={base.w} height={base.h} />}
         {view.mode === 'regions' && !view.compare && <canvas ref={cleanRef} width={base.w} height={base.h} />}
+        {(view.mode === 'threads' || view.mode === 'regions') && result && !view.compare && <LineLayerSvg lines={result.lines} mmPerPx={mmPerPx} width={base.w} height={base.h} />}
         {view.mode === 'regions' && result && !view.compare && (
           <svg className={`vec${selIdx >= 0 ? ' has-selection' : ''}`} width={base.w} height={base.h} viewBox={`0 0 ${base.w} ${base.h}`}>
             <g fillRule="evenodd" fill="transparent" stroke="rgba(0,0,0,0.45)" strokeWidth={0.6 / tf.k} strokeLinejoin="round">

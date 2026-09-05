@@ -26,7 +26,7 @@ export function TopBar() {
   const svgOf = (mode: 'pattern' | 'color', legend = true) => result ? buildPatternSvg(result.graph, result.palette, threads, result.pattern, {
     mode, showLabels: s.view.showLabels, showHoop: s.view.showHoop, showLegend: legend, outlineStrength: s.project.settings.outlineStrength, projectName: s.project.name, fabricHex: s.project.settings.fabric?.enabled ? s.project.settings.fabric.hex : undefined,
     metadata: { settings: s.project.settings, dimensions: s.project.dimensions, paletteEdits: s.project.paletteEdits, engine: result.params },
-  }) : '';
+  }, result.lines) : '';
   const act = (fn: () => void) => () => { setMenu(false); fn(); };
 
   const statusText = s.status === 'running' ? `Processing${s.stage ? ` · ${s.stage}` : ''}…`

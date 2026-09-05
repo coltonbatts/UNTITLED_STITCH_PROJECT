@@ -1,5 +1,6 @@
-import type { RasterRGBA, WorkingImage } from '../types';
+import type { RasterRGBA, RawStroke, WorkingImage } from '../types';
 import { SRGB_TO_LINEAR, linearRgbToOklab } from '../color';
+import { detectStrokes, topHat, type LineDetectOptions } from '../lines/detect';
 
 function gaussianKernel(sigma: number): Float32Array {
   const radius = Math.max(1, Math.ceil(sigma * 2.5));
@@ -114,10 +115,38 @@ export function contrastMap(oklab: Float32Array, width: number, height: number):
 }
 
 /**
- * Builds the working image: OKLab planes (optionally pre-blurred to suppress
- * sensor noise and micro-texture), a contrast map, and a mask from alpha.
+ * Anti-aliased ramps: pixels with a steep OKLab gradient that are not part of
+ * a small feature (and were not lifted as strokes). Such a pixel is a blend of
+ * its two neighbours, never a colour anyone stitches. `threshold` is ΔE per px.
  */
-export function buildWorkingImage(raster: RasterRGBA, mmPerPx: number, preBlurSigmaMm: number): WorkingImage {
+export function rampMask(oklab: Float32Array, width: number, height: number, feature: Uint8Array | null, lifted: Uint8Array | null, threshold = 0.06): Uint8Array {
+  const out = new Uint8Array(width * height);
+  // Sobel sums weights of 8 across two pixels: compare squared magnitude against (8·threshold)².
+  const limit = (8 * threshold) * (8 * threshold);
+  for (let y = 0; y < height; y++) {
+    const ym = (y > 0 ? y - 1 : 0) * width, yc = y * width, yp = (y < height - 1 ? y + 1 : y) * width;
+    for (let x = 0; x < width; x++) {
+      const i = yc + x;
+      if ((feature && feature[i]) || (lifted && lifted[i])) continue;
+      const xm = x > 0 ? x - 1 : 0, xp = x < width - 1 ? x + 1 : x;
+      let g2 = 0;
+      for (let c = 0; c < 3; c++) {
+        const gx = oklab[(ym + xp) * 3 + c] + 2 * oklab[(yc + xp) * 3 + c] + oklab[(yp + xp) * 3 + c] - oklab[(ym + xm) * 3 + c] - 2 * oklab[(yc + xm) * 3 + c] - oklab[(yp + xm) * 3 + c];
+        const gy = oklab[(yp + xm) * 3 + c] + 2 * oklab[(yp + x) * 3 + c] + oklab[(yp + xp) * 3 + c] - oklab[(ym + xm) * 3 + c] - 2 * oklab[(ym + x) * 3 + c] - oklab[(ym + xp) * 3 + c];
+        g2 += gx * gx + gy * gy;
+      }
+      if (g2 > limit) out[i] = 1;
+    }
+  }
+  return out;
+}
+
+/**
+ * Builds the working image: OKLab planes (optionally pre-blurred to suppress
+ * sensor noise and micro-texture), a contrast map, a ramp mask, a mask from
+ * alpha, and — when `lines` is given — thin strokes lifted off the image.
+ */
+export function buildWorkingImage(raster: RasterRGBA, mmPerPx: number, preBlurSigmaMm: number, lines?: LineDetectOptions): WorkingImage {
   const { width, height, rgba } = raster;
   const n = width * height;
   let oklab: Float32Array = new Float32Array(n * 3);
@@ -133,8 +162,26 @@ export function buildWorkingImage(raster: RasterRGBA, mmPerPx: number, preBlurSi
       mask[i] = 0;
     }
   }
+  let strokes: RawStroke[] = [];
+  let feature: Uint8Array;
+  let lifted: Uint8Array | null = null;
+  if (lines) {
+    const det = detectStrokes(oklab, width, height, lines);
+    oklab = det.oklab;
+    strokes = det.strokes;
+    feature = det.feature;
+    lifted = det.lifted;
+  } else {
+    // Small features at about a millimetre keep their contrast boost; everything else steep is a ramp.
+    const L = new Float32Array(n);
+    for (let i = 0; i < n; i++) L[i] = oklab[i * 3];
+    const hat = topHat(L, width, height, 3);
+    feature = new Uint8Array(n);
+    for (let i = 0; i < n; i++) if (Math.max(hat.dark[i], hat.light[i]) > 0.16) feature[i] = 1;
+  }
   const contrast = contrastMap(oklab, width, height);
+  const ramp = rampMask(oklab, width, height, feature, lifted);
   const sigmaPx = preBlurSigmaMm / mmPerPx;
   if (sigmaPx > 0.3) oklab = bilateralPlanes3(oklab, width, height, sigmaPx, 0.06);
-  return { width, height, mmPerPx, rgba, oklab, contrast, mask };
+  return { width, height, mmPerPx, rgba, oklab, contrast, ramp, strokes, mask };
 }

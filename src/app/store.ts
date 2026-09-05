@@ -2,7 +2,8 @@
 // No dependency: useSyncExternalStore over one immutable state object.
 import { useSyncExternalStore } from 'react';
 import type { CropRect, EmbroideryDimensions, PaletteEdits, PipelineResult, ProcessingSettings, Project, RasterRGBA } from '@/engine/types';
-import { DEFAULT_DIMENSIONS, DEFAULT_SETTINGS } from '@/engine/embroidery/params';
+import { DEFAULT_DIMENSIONS, DEFAULT_SETTINGS, presetSettings } from '@/engine/embroidery/params';
+import type { Preset } from '@/engine/types';
 
 export type ViewMode = 'original' | 'threads' | 'regions' | 'pattern';
 
@@ -128,6 +129,10 @@ export function setView(patch: Partial<ViewState>): void {
 }
 export function updateSettings(patch: Partial<ProcessingSettings>, opts?: { transient?: boolean }): void {
   updateProject({ settings: { ...state.project.settings, ...patch, preset: 'custom' } }, opts);
+}
+/** Presets set the artist-facing controls; what they mean to the engine lives in params.ts. */
+export function applyPreset(preset: Preset): void {
+  updateProject({ settings: presetSettings(state.project.settings, preset) });
 }
 export function updateDimensions(patch: Partial<EmbroideryDimensions>, opts?: { transient?: boolean }): void {
   updateProject({ dimensions: { ...state.project.dimensions, ...patch } }, opts);

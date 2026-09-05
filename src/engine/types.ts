@@ -131,6 +131,22 @@ export interface EngineParams {
   maxRegions: number;
   simplifyToleranceMm: number;
   smoothingPasses: number;
+  /** Mode-filter radius in mm (0 disables it). Decoupled from the pre-blur so flat art can keep thin strokes. */
+  modeRadiusMm: number;
+  /** Vertices turning more sharply than this (degrees) are pinned during smoothing. */
+  cornerAngleDeg: number;
+  /** Anti-aliased ramp pixels get this sample weight in palette extraction (flat pixels get ≥ 1). */
+  rampWeight: number;
+  /** A palette entry whose pixels are mostly ramps (share above this) is a halo and is dissolved. */
+  haloMaxRampShare: number;
+  /** Strokes up to this wide (two stitch widths at the current strand count) are lines, not fills. */
+  lineMaxWidthMm: number;
+  /** Shorter thin features are specks: erased from the fill image, not emitted as lines. */
+  lineMinLengthMm: number;
+  /** Minimum L contrast of a stroke against its surroundings before it is lifted off the fill. */
+  lineContrast: number;
+  /** Thin features up to this wide and shorter than lineMinLengthMm are noise and are erased. */
+  speckMaxWidthMm: number;
 }
 
 // ---------- Pipeline data ----------
@@ -152,6 +168,42 @@ export interface WorkingImage {
   contrast: Float32Array;
   /** 1 = process, 0 = masked out. Undefined means all pixels are processed. */
   mask?: Uint8Array;
+  /**
+   * 1 where the pixel is an anti-aliased ramp between two flat colours (high
+   * gradient, not a small feature). Ramp pixels are not colours anyone stitches.
+   */
+  ramp: Uint8Array;
+  /** Thin high-contrast strokes lifted off the image before segmentation (colour only; threads are resolved later). */
+  strokes: RawStroke[];
+}
+
+// ---------- Line layer ----------
+
+export type LineStitch = 'back' | 'stem';
+
+/** A stroke as detected on the raster, before it is given a thread. Working pixel units. */
+export interface RawStroke {
+  /** Centre-line polylines (a stroke with junctions has several). */
+  paths: Point[][];
+  widthPx: number;
+  lengthPx: number;
+  /** Mean OKLab of the stroke pixels. */
+  oklab: OKLab;
+  /** 'image': lifted off the raster before segmentation. 'region': a fill region too thin to stitch as a fill. */
+  source: 'image' | 'region';
+}
+
+export interface LineStroke extends RawStroke {
+  id: number;
+  widthMm: number;
+  lengthMm: number;
+  thread: ThreadColor;
+  stitch: LineStitch;
+}
+
+/** Stem/back-stitch line work drawn over the fills. Kept apart from regions so the legend and estimates stay honest. */
+export interface LineLayer {
+  strokes: LineStroke[];
 }
 
 export interface PaletteEntry {
@@ -240,12 +292,21 @@ export interface LegendRow {
   share: number;
 }
 
+export interface LineLegendRow {
+  thread: ThreadColor;
+  stitch: LineStitch;
+  strokeCount: number;
+  lengthMm: number;
+}
+
 export interface EffortEstimate {
   regionCount: number;
   threadCount: number;
   colorChanges: number;
   boundaryMm: number;
   areaMm2: number;
+  /** Total centre-line length of the line layer. */
+  lineMm: number;
   stitchesApprox: number;
   /** 0–100, relative effort. */
   score: number;
@@ -257,18 +318,21 @@ export interface Pattern {
   mmPerPx: number;
   labels: PatternLabel[];
   legend: LegendRow[];
+  /** Threads used by the line layer, separate from the fill legend. */
+  lineLegend: LineLegendRow[];
   hoop?: Hoop;
   estimates: EffortEstimate;
 }
 
 export interface PipelineResult {
-  working: { width: number; height: number; mmPerPx: number; rgba: Uint8ClampedArray };
+  working: { width: number; height: number; mmPerPx: number; rgba: Uint8ClampedArray; ramp: Uint8Array };
   palette: ThreadPalette;
   /** Nearest-thread assignment before cleanup (the Threads view). */
   rawLabelMap: LabelMap;
   /** Cleaned assignment the regions are built from. */
   labelMap: LabelMap;
   graph: RegionGraph;
+  lines: LineLayer;
   pattern: Pattern;
   params: EngineParams;
   timingsMs: Record<string, number>;

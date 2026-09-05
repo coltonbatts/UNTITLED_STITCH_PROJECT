@@ -1,9 +1,9 @@
-import { commitTransient, setView, updateDimensions, updateSettings, useAppState } from '@/app/store';
+import { applyPreset, commitTransient, setView, updateDimensions, updateSettings, useAppState } from '@/app/store';
 import { rotate } from '@/app/controller';
-import { deriveEngineParams } from '@/engine/embroidery/params';
+import { deriveEngineParams, PRESET_LABELS } from '@/engine/embroidery/params';
 import { IDENTITY_ADJUST, isIdentityAdjust } from '@/engine/image/adjust';
 import { DEFAULT_FABRIC_TOLERANCE, suggestFabricColor } from '@/engine/image/fabric';
-import type { Hoop, StrandCount } from '@/engine/types';
+import type { Hoop, Preset, StrandCount } from '@/engine/types';
 import { Check, NumberField, Section, Slider } from './controls';
 import { fmtInt, fmtMm } from './viewModel';
 
@@ -54,6 +54,13 @@ export function Inspector() {
       </Section>
 
       <Section title="Translation">
+        <div className="field">
+          <label htmlFor="preset">Preset</label>
+          <select id="preset" className="select" value={settings.preset} onChange={(e) => applyPreset(e.target.value as Preset)}>
+            {(Object.keys(PRESET_LABELS) as Preset[]).map((p) => <option key={p} value={p}>{PRESET_LABELS[p]}</option>)}
+          </select>
+        </div>
+        {settings.preset === 'flat' && <div className="note">Flat art: no smoothing, hard corners, a sparse palette, and thin strokes become line stitches.</div>}
         <Slider label="Thread colours" value={settings.threadCount} min={4} max={40} step={1} ends={['4', '40']}
           onInput={(v) => updateSettings({ threadCount: v }, { transient: true })} onCommit={commit} />
         <Slider label="Fidelity" value={settings.fidelity} min={0} max={1} step={0.01} display={pct} ends={['Simplified', 'Detailed']}
@@ -120,8 +127,20 @@ export function Inspector() {
               <dt>Threads used</dt><dd>{est.threadCount}</dd>
               <dt>Boundary length</dt><dd>{num(est.boundaryMm / 10)} cm</dd>
               <dt>Stitched area</dt><dd>{num(est.areaMm2 / 100)} cm²</dd>
+              {est.lineMm > 0 && <><dt>Line work</dt><dd>{s.result!.lines.strokes.length} lines · {num(est.lineMm / 10)} cm</dd></>}
               <dt>Stitches (rough)</dt><dd>~{fmtInt(est.stitchesApprox)}</dd>
             </dl>
+            {s.result!.pattern.lineLegend.length > 0 && (
+              <ul className="lines" aria-label="Line threads">
+                {s.result!.pattern.lineLegend.map((row) => (
+                  <li key={`${row.thread.number}-${row.stitch}`}>
+                    <i className="sw" style={{ background: row.thread.hex }} />
+                    <span className="num">DMC {row.thread.number}</span>
+                    <span>{row.stitch} stitch · {row.strokeCount} line{row.strokeCount > 1 ? 's' : ''} · {Math.round(row.lengthMm)} mm</span>
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="meter" aria-label={`Effort ${est.score} of 100`}><i style={{ width: `${est.score}%` }} /></div>
             <div className="note">Effort {est.score}/100 at {dimensions.strands} strand{dimensions.strands > 1 ? 's' : ''}, {fmtMm(dimensions.widthMm)} × {fmtMm(dimensions.heightMm)} mm. Stitch counts assume long-and-short stitch and are approximate.</div>
           </>

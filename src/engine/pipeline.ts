@@ -2,8 +2,10 @@
 // the cache is keyed by a structural key of exactly the inputs it depends on.
 import type {
   CropRect, EmbroideryDimensions, EngineParams, OKLab, PaletteEdits, PipelineResult, ProcessingSettings,
-  RasterRGBA, ThreadColor, ThreadLibrary, ThreadPalette, WorkingImage, LabelMap, RegionGraph,
+  RasterRGBA, RawStroke, ThreadColor, ThreadLibrary, ThreadPalette, WorkingImage, LabelMap, RegionGraph,
 } from './types';
+import { liftThinRegions } from './lines/thin';
+import { resolveStrokes } from './lines/layer';
 import { deriveEngineParams } from './embroidery/params';
 import { cropRotate, resample } from './image/resample';
 import { workingResolution } from './image/physical';
@@ -35,7 +37,7 @@ export class Pipeline {
   private working?: Stage<WorkingImage>;
   private masked?: Stage<WorkingImage>;
   private palette?: Stage<ThreadPalette>;
-  private segment?: Stage<{ raw: LabelMap; clean: LabelMap }>;
+  private segment?: Stage<{ raw: LabelMap; clean: LabelMap; regionStrokes: RawStroke[] }>;
   private graph?: Stage<RegionGraph>;
 
   constructor(private readonly library: ThreadLibrary) {}
@@ -74,11 +76,17 @@ export class Pipeline {
       this.adjusted = { key: adjustKey, value: time('adjust', () => adjustRaster(raster, adj)) };
       this.working = undefined;
     }
-    // 1c. OKLab planes, contrast, pre-blur (depends on fidelity)
-    const workingKey = adjustKey + JSON.stringify([params.preBlurSigmaMm, res.mmPerPx]);
+    // 1c. OKLab planes, line lift, contrast, ramps, pre-blur (depends on fidelity, strands)
+    const lineOpts = {
+      maxWidthPx: params.lineMaxWidthMm / res.mmPerPx,
+      minLengthPx: params.lineMinLengthMm / res.mmPerPx,
+      contrast: params.lineContrast,
+      speckMaxWidthPx: params.speckMaxWidthMm / res.mmPerPx,
+    };
+    const workingKey = adjustKey + JSON.stringify([params.preBlurSigmaMm, res.mmPerPx, lineOpts]);
     if (this.working?.key !== workingKey) {
       const raster = this.adjusted.value;
-      this.working = { key: workingKey, value: time('prepare', () => buildWorkingImage(raster, res.mmPerPx, params.preBlurSigmaMm)) };
+      this.working = { key: workingKey, value: time('prepare', () => buildWorkingImage(raster, res.mmPerPx, params.preBlurSigmaMm, lineOpts)) };
       this.masked = undefined;
     }
     // 1d. bare-fabric mask (depends on fabric colour / tolerance)
@@ -93,11 +101,12 @@ export class Pipeline {
 
     // 2. palette (depends on thread count, fidelity weights, colour fidelity, locks)
     const locked = req.paletteEdits.locked.map((n) => this.library.byNumber.get(n)).filter((t): t is ThreadColor => !!t);
-    const paletteKey = workingKey + JSON.stringify([req.settings.threadCount, params.contrastWeight, params.lightnessWeight, params.mergeDeltaE, locked.map((t) => t.number)]);
+    const paletteKey = maskKey + JSON.stringify([req.settings.threadCount, params.contrastWeight, params.lightnessWeight, params.mergeDeltaE, params.rampWeight, params.haloMaxRampShare, locked.map((t) => t.number)]);
     if (this.palette?.key !== paletteKey) {
       this.palette = { key: paletteKey, value: time('palette', () => extractPalette(working, this.library, {
         threadCount: req.settings.threadCount, locked,
         contrastWeight: params.contrastWeight, lightnessWeight: params.lightnessWeight, mergeDeltaE: params.mergeDeltaE,
+        rampWeight: params.rampWeight, haloMaxRampShare: params.haloMaxRampShare,
       })) };
       this.segment = undefined;
     }
@@ -120,37 +129,42 @@ export class Pipeline {
     });
     const labelColors: OKLab[] = palette.entries.map((e) => e.thread.oklab);
     const minAreaPx = params.minAreaMm2 / (res.mmPerPx * res.mmPerPx);
-    const modeRadius = Math.max(0, Math.min(6, Math.round(params.minFeatureMm / res.mmPerPx / 2)));
-    const segmentKey = paletteKey + JSON.stringify([Array.from(mergeMap.entries()), minAreaPx, modeRadius, params.keepContrastDeltaE, params.maxRegions]);
+    const modeRadius = Math.max(0, Math.min(6, Math.round(params.modeRadiusMm / res.mmPerPx)));
+    const segmentKey = paletteKey + JSON.stringify([Array.from(mergeMap.entries()), minAreaPx, modeRadius, params.keepContrastDeltaE, params.maxRegions, lineOpts]);
     if (this.segment?.key !== segmentKey) {
       this.segment = { key: segmentKey, value: time('segment', () => {
-        const raw = remapLabels(assignLabels(working, palette), mergeMap);
+        const raw = remapLabels(assignLabels(working, palette, { rampRadiusPx: 2 }), mergeMap);
         let map = modeFilter(raw, modeRadius, palette.entries.length);
         map = mergeIslands(map, { labelColors, minAreaPx, keepContrastDeltaE: params.keepContrastDeltaE, maxRegions: params.maxRegions }).map;
-        return { raw, clean: map };
+        // Width test: fills too thin to stitch as fills become lines.
+        const thin = liftThinRegions(map, { labelColors, maxWidthPx: lineOpts.maxWidthPx, minLengthPx: lineOpts.minLengthPx, keepContrastDeltaE: params.keepContrastDeltaE, oklab: working.oklab });
+        return { raw, clean: thin.map, regionStrokes: thin.strokes };
       }) };
       this.graph = undefined;
     }
-    const { raw: rawLabelMap, clean: labelMap } = this.segment.value;
+    const { raw: rawLabelMap, clean: labelMap, regionStrokes } = this.segment.value;
 
     // 4 + 5. region graph and vectors (depends on simplification)
     const simplifyPx = params.simplifyToleranceMm / res.mmPerPx;
-    const graphKey = segmentKey + JSON.stringify([simplifyPx, params.smoothingPasses]);
+    const graphKey = segmentKey + JSON.stringify([simplifyPx, params.smoothingPasses, params.cornerAngleDeg]);
     if (this.graph?.key !== graphKey) {
       this.graph = { key: graphKey, value: time('vectorize', () => {
         const g = buildRegionGraph(labelMap, res.mmPerPx, labelColors);
-        return vectorizeRegions(g, { simplifyTolerancePx: simplifyPx, smoothingPasses: params.smoothingPasses });
+        return vectorizeRegions(g, { simplifyTolerancePx: simplifyPx, smoothingPasses: params.smoothingPasses, cornerAngleDeg: params.cornerAngleDeg });
       }) };
     }
     const graph = this.graph.value;
 
+    // 5b. line layer: strokes lifted off the image plus fills that failed the width test (cheap, not cached)
+    const lines = time('lines', () => resolveStrokes([...working.strokes, ...regionStrokes], this.library, palette, res.mmPerPx, req.dimensions.strands));
+
     // 6. pattern (cheap, not cached; depends on replacements)
     const effective = this.effectiveThreads(palette, req.paletteEdits);
-    const pattern = time('pattern', () => buildPattern(graph, palette, effective, req.dimensions));
+    const pattern = time('pattern', () => buildPattern(graph, palette, effective, req.dimensions, lines));
 
     return {
-      working: { width: working.width, height: working.height, mmPerPx: working.mmPerPx, rgba: working.rgba },
-      palette, rawLabelMap, labelMap, graph, pattern, params, timingsMs: timings,
+      working: { width: working.width, height: working.height, mmPerPx: working.mmPerPx, rgba: working.rgba, ramp: working.ramp },
+      palette, rawLabelMap, labelMap, graph, lines, pattern, params, timingsMs: timings,
     };
   }
 }

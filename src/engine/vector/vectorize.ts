@@ -7,6 +7,8 @@ import { ringsToPathD } from './svgPath';
 export interface VectorizeOptions {
   simplifyTolerancePx: number;
   smoothingPasses: number;
+  /** Turns sharper than this stay sharp through smoothing. Default: smooth everything. */
+  cornerAngleDeg?: number;
 }
 
 /** Fills `rings` and `pathD` on every region of the graph. Returns the same graph object. */
@@ -14,7 +16,7 @@ export function vectorizeRegions(graph: RegionGraph, opts: VectorizeOptions): Re
   const arcs = traceArcs(graph.regionMap, graph.width, graph.height);
   const simplified: Point[][] = arcs.map((a) => {
     const s = simplifyPolyline(a.points, opts.simplifyTolerancePx);
-    return chaikin(s, opts.smoothingPasses);
+    return chaikin(s, opts.smoothingPasses, opts.cornerAngleDeg);
   });
   const rings = assembleRings(arcs, simplified, graph.regions.length);
   for (const region of graph.regions) {

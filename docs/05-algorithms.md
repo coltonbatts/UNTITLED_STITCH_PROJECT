@@ -47,6 +47,49 @@ Libraries considered: `image-q` (large, RGB-centric, non-deterministic
 options), `quantize` (RGB median cut). Neither can accept a fixed candidate
 set.
 
+## Line layer: top-hat candidates, median cross-check, skeleton
+
+Thin strokes are found with a morphological top-hat on L: a closing (dark
+strokes) and an opening (light strokes) with a square window just wider than
+the maximum line width; the difference to the original is the response. Two
+failure modes needed guards. A closing also fills the *gap* between two
+nearby specks, so the ground between them lights up as a dark feature; a
+candidate must therefore also differ from the local median, which sparse
+specks cannot move. And the curved parts of a thick ring respond at the
+window's corners; a candidate must be bounded by the opposite value on at
+least 80 % of its rim, which a fragment of a ring's edge is not.
+
+Each candidate component is measured on its core (response above half the
+peak, i.e. without the anti-aliased fringe): the chamfer maximum gates the
+width coarsely, then the skeleton gives the exact figure as area ÷ centre-line
+length, because the chamfer maximum under-reads even widths by a pixel.
+Skeletons come from Zhang–Suen thinning followed by a redundancy pass (a
+pixel whose foreground neighbours already form one 8-connected group is
+dropped; this is what turns the two-pixel knots Zhang–Suen leaves on
+diagonals into clean arcs), spur pruning at about the stroke width, and a
+walk of the skeleton graph split at junctions. A stroke is one or two long
+paths; a speck cluster is many short ones and is erased instead. Stroke
+colour is the response-weighted mean of the core, since anti-aliasing always
+pulls a thin stroke toward its ground.
+
+Lifted pixels (plus a one-pixel rim) are inpainted layer by layer from the
+outside in with the mean of known 8-neighbours. Alternatives considered:
+Canny/Hough (straight lines only), ridge filters such as Frangi (tuned for
+vessels, scale-space cost), a learned text detector (not deterministic, DOM
+or WASM dependency).
+
+## Halo suppression
+
+Anti-aliased edges are the reason flat art grew a "lighter-brown rim" thread
+around dark letters: contrast weighting was designed for catchlights but
+boosted every edge pixel too. A ramp mask (steep OKLab gradient, not the core
+of a small feature, not lifted) now separates the two. Ramp samples get a
+fixed low weight in k-means; a thread whose samples are mostly ramps after
+convergence is dissolved; and at assignment time a ramp pixel may only take a
+thread present among the flat pixels within two pixels of it. On a photograph
+this raises the raw assignment error slightly (ramps no longer get their own
+best-fit colour) and leaves the cleaned error unchanged, see 06.
+
 ## Cleanup: mode filter then island merge in mm²
 
 A mode filter of radius r on a label map is a deterministic majority vote
@@ -58,6 +101,18 @@ specks collapse together. A **region budget** (from *Complexity*) then raises
 the area threshold by 1.5× until the count fits. The "keep if contrast is high" rule is what
 preserves catchlights and nostrils that a pure area rule would delete.
 
+The mode-filter radius is its own parameter rather than half the minimum
+feature: the two were coupled, and any stroke thinner than the minimum
+feature was erased before segmentation saw it. Two topological rules run
+before the area rule. The **counter rule**: an island with exactly one
+neighbour, whose label that neighbour also touches elsewhere, is a hole (the
+inside of an O, the loops of an 8) and is kept; area says nothing about it.
+The **width test** (after merging): a region whose inscribed width from the
+distance transform is under two stitch widths, that contrasts with every
+neighbour, and whose skeleton is long enough to be a mark, is a line and
+moves to the line layer with its pixels refilled from the surroundings.
+Low-contrast slivers are left to the area rule as before.
+
 ## Vectorisation: crack-edge arcs with shared simplification
 
 Tracers such as potrace and ImageTracer trace each colour independently,
@@ -68,7 +123,10 @@ vertices (degree ≠ 2) into arcs, simplify and smooth each arc once with
 endpoints pinned, then reassemble rings per region. This is the TopoJSON
 approach applied to a raster. Douglas–Peucker tolerance follows *Fidelity*;
 Chaikin corner cutting (1–2 passes) turns pixel staircases into something
-that looks drawn.
+that looks drawn. Vertices turning by at least 80° after simplification are
+treated like endpoints and pinned: a serif or a box corner stays a corner,
+while staircases (turns of 45–90° on one-pixel steps have already been
+simplified away) still round off. The flat-art preset uses zero passes.
 
 Libraries considered: `potrace` (GPL, single colour), `imagetracerjs`
 (per-colour, gaps), `d3-contour` (marching squares on scalar fields, would
