@@ -71,6 +71,14 @@ export interface ColorAdjust {
   lightness: number; // -1..1  Darker ↔ Lighter
 }
 
+/** Bare cloth left unstitched wherever the image is close to its colour. */
+export interface FabricSettings {
+  enabled: boolean;
+  hex: string;
+  /** 0–1: how far from the fabric colour still counts as fabric. */
+  tolerance: number;
+}
+
 export interface ProcessingSettings {
   threadCount: number; // 4–40
   fidelity: number; // 0–1  Simplified ↔ Detailed
@@ -81,6 +89,8 @@ export interface ProcessingSettings {
   outlineStrength: number; // 0–1, pattern rendering only
   /** Optional so projects saved before it existed still load (identity when absent). */
   colorAdjust?: ColorAdjust;
+  /** Optional so older projects load; absent means stitch everything. */
+  fabric?: FabricSettings;
   preset: Preset;
 }
 

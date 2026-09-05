@@ -16,7 +16,7 @@ export function downloadText(text: string, filename: string, mime: string): void
 }
 
 /** Raster export of the thread approximation or cleaned regions at 2× working resolution. */
-export async function exportPng(result: PipelineResult, threads: ThreadColor[], which: 'threads' | 'regions', filename: string): Promise<void> {
+export async function exportPng(result: PipelineResult, threads: ThreadColor[], which: 'threads' | 'regions', filename: string, fabricHex?: string): Promise<void> {
   const map = which === 'threads' ? result.rawLabelMap : result.labelMap;
   const { width, height } = map;
   const src = document.createElement('canvas');
@@ -28,6 +28,7 @@ export async function exportPng(result: PipelineResult, threads: ThreadColor[], 
   const out = document.createElement('canvas');
   out.width = width * 2; out.height = height * 2;
   const octx = out.getContext('2d')!;
+  if (fabricHex) { octx.fillStyle = fabricHex; octx.fillRect(0, 0, out.width, out.height); }
   octx.imageSmoothingEnabled = false;
   octx.drawImage(src, 0, 0, out.width, out.height);
   const blob = await new Promise<Blob | null>((r) => out.toBlob(r, 'image/png'));

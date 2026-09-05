@@ -24,7 +24,7 @@ export function TopBar() {
   const lib = getDmcLibrary();
   const threads = result ? effectiveThreads(result.palette, s.project.paletteEdits, lib) : [];
   const svgOf = (mode: 'pattern' | 'color', legend = true) => result ? buildPatternSvg(result.graph, result.palette, threads, result.pattern, {
-    mode, showLabels: s.view.showLabels, showHoop: s.view.showHoop, showLegend: legend, outlineStrength: s.project.settings.outlineStrength, projectName: s.project.name,
+    mode, showLabels: s.view.showLabels, showHoop: s.view.showHoop, showLegend: legend, outlineStrength: s.project.settings.outlineStrength, projectName: s.project.name, fabricHex: s.project.settings.fabric?.enabled ? s.project.settings.fabric.hex : undefined,
     metadata: { settings: s.project.settings, dimensions: s.project.dimensions, paletteEdits: s.project.paletteEdits, engine: result.params },
   }) : '';
   const act = (fn: () => void) => () => { setMenu(false); fn(); };
@@ -50,8 +50,8 @@ export function TopBar() {
             <button role="menuitem" onClick={act(() => downloadText(svgOf('color', false), `${safeName}-colour.svg`, 'image/svg+xml'))}>Colour regions SVG</button>
             <button role="menuitem" onClick={act(() => printSvg(svgOf('pattern'), s.project.name))}>Print pattern… (PDF via browser)</button>
             <hr />
-            <button role="menuitem" onClick={act(() => void exportPng(result, threads, 'threads', `${safeName}-threads.png`))}>Thread approximation PNG</button>
-            <button role="menuitem" onClick={act(() => void exportPng(result, threads, 'regions', `${safeName}-regions.png`))}>Regions PNG</button>
+            <button role="menuitem" onClick={act(() => void exportPng(result, threads, 'threads', `${safeName}-threads.png`, s.project.settings.fabric?.enabled ? s.project.settings.fabric.hex : undefined))}>Thread approximation PNG</button>
+            <button role="menuitem" onClick={act(() => void exportPng(result, threads, 'regions', `${safeName}-regions.png`, s.project.settings.fabric?.enabled ? s.project.settings.fabric.hex : undefined))}>Regions PNG</button>
             <hr />
             <button role="menuitem" onClick={act(() => downloadText(buildThreadListText(result.pattern.legend, s.project.name), `${safeName}-threads.txt`, 'text/plain'))}>DMC thread list (.txt)</button>
             <button role="menuitem" onClick={act(() => downloadText(buildThreadListCsv(result.pattern.legend), `${safeName}-threads.csv`, 'text/csv'))}>DMC thread list (.csv)</button>

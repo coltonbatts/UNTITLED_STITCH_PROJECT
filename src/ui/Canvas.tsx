@@ -98,6 +98,7 @@ export function Canvas() {
   const hoverRegion = view.hoverRegion !== null && result ? result.graph.regions[view.hoverRegion] : null;
   const selIdx = view.selectedThread && result ? result.palette.entries.findIndex((e) => e.thread.number === view.selectedThread) : -1;
   const strokePx = result ? outlineWidthMm(project.settings.outlineStrength) / mmPerPx : 1;
+  const fabric = project.settings.fabric?.enabled ? project.settings.fabric.hex : null;
 
   const onDrop = (e: DragEvent) => { e.preventDefault(); setOver(false); const f = e.dataTransfer.files?.[0]; if (f && f.type.startsWith('image/')) void importImageFile(f); };
 
@@ -125,6 +126,10 @@ export function Canvas() {
       <div className="stage" style={{ transform: `translate(${tf.x}px, ${tf.y}px) scale(${tf.k})`, width: base.w, height: base.h }}>
         {view.mode === 'pattern' && result && !view.compare && (
           <svg className="vec pat paper" width={base.w} height={base.h} viewBox={`0 0 ${base.w} ${base.h}`}>
+            {fabric && <>
+              <defs><pattern id="bare" width={2 / mmPerPx} height={2 / mmPerPx} patternUnits="userSpaceOnUse"><path d={`M0 ${2 / mmPerPx}L${2 / mmPerPx} 0`} stroke="#bbb" strokeWidth={0.12 / mmPerPx} /></pattern></defs>
+              <rect width={base.w} height={base.h} fill={view.tintRegions ? fabric : 'url(#bare)'} opacity={view.tintRegions ? 0.35 : 1} />
+            </>}
             <g fillRule="evenodd" strokeLinejoin="round" className={selIdx >= 0 ? 'has-selection' : ''}>
               {result.graph.regions.map((r) => {
                 const t = threads[r.paletteIndex];
@@ -152,6 +157,7 @@ export function Canvas() {
               : <rect x={(base.w - hoop.widthMm / mmPerPx) / 2} y={(base.h - hoop.heightMm / mmPerPx) / 2} width={hoop.widthMm / mmPerPx} height={hoop.heightMm / mmPerPx} fill="none" stroke="#888" strokeWidth={0.2 / mmPerPx} strokeDasharray={`${1.2 / mmPerPx} ${0.8 / mmPerPx}`} />)}
           </svg>
         )}
+        {fabric && (view.mode === 'threads' || view.mode === 'regions') && !view.compare && <div style={{ width: base.w, height: base.h, background: fabric }} aria-hidden />}
         {view.mode === 'threads' && !view.compare && <canvas ref={rawRef} width={base.w} height={base.h} />}
         {view.mode === 'regions' && !view.compare && <canvas ref={cleanRef} width={base.w} height={base.h} />}
         {view.mode === 'regions' && result && !view.compare && (

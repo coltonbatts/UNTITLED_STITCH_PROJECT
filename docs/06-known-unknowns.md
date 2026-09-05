@@ -37,6 +37,16 @@ Things we cannot settle from a desk. Each needs stitched samples.
 10. **Label density on paper.** At A4 for a 200 mm piece, how many labels
     before the pattern is unreadable?
 
+## Fabric
+
+14. **Fabric tolerance is a guess.** 0.015–0.215 OKLab, default 0.045. Black
+    fur on dark-brown cloth sits at ~0.05, so the default must stay below
+    that; scanner/photo noise on flat cloth sits around 0.03. Needs checking
+    on real photographs of cloth, which are never flat.
+15. **One-pixel erosion of the stitched area** removes the anti-aliased halo
+    but also shaves 0.25 mm off every subject edge at 4 px/mm. Probably
+    invisible in thread; verify.
+
 ## Technical
 
 11. **Working resolution.** 4 px/mm is enough for 1 mm features; is it too

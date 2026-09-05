@@ -2,6 +2,7 @@ import { commitTransient, setView, updateDimensions, updateSettings, useAppState
 import { rotate } from '@/app/controller';
 import { deriveEngineParams } from '@/engine/embroidery/params';
 import { IDENTITY_ADJUST, isIdentityAdjust } from '@/engine/image/adjust';
+import { DEFAULT_FABRIC_TOLERANCE, suggestFabricColor } from '@/engine/image/fabric';
 import type { Hoop, StrandCount } from '@/engine/types';
 import { Check, NumberField, Section, Slider } from './controls';
 import { fmtInt, fmtMm } from './viewModel';
@@ -25,6 +26,9 @@ export function Inspector() {
   const adj = settings.colorAdjust ?? IDENTITY_ADJUST;
   const setAdj = (patch: Partial<typeof adj>) => updateSettings({ colorAdjust: { ...adj, ...patch } }, { transient: true });
   const signedPct = (v: number) => `${v > 0 ? '+' : ''}${Math.round(v * 100)}`;
+  const fabric = settings.fabric ?? { enabled: false, hex: '#1f1a14', tolerance: DEFAULT_FABRIC_TOLERANCE };
+  const setFabric = (patch: Partial<typeof fabric>, transient = false) => updateSettings({ fabric: { ...fabric, ...patch } }, { transient });
+  const pickFromEdges = () => { if (s.sourceRaster) setFabric({ hex: suggestFabricColor(s.sourceRaster), enabled: true }); };
 
   return (
     <aside className="inspector" aria-label="Inspector">
@@ -66,6 +70,25 @@ export function Inspector() {
         ) : (
           <div className="note">Ignoring details smaller than about <b className="num">{params.minFeatureMm.toFixed(1)} mm</b> ({params.minAreaMm2.toFixed(1)} mm²), up to {params.maxRegions} regions.</div>
         )}
+      </Section>
+
+      <Section title="Fabric">
+        <Check label="Leave the fabric bare" checked={fabric.enabled}
+          onChange={(on) => { if (on && !settings.fabric && s.sourceRaster) setFabric({ enabled: true, hex: suggestFabricColor(s.sourceRaster) }); else setFabric({ enabled: on }); }} />
+        <div className="field">
+          <label htmlFor="fabric-hex">Fabric colour</label>
+          <div className="row">
+            <input id="fabric-hex" type="color" className="input" style={{ width: 44, padding: 1, height: 24 }} value={fabric.hex} disabled={disabled || !fabric.enabled}
+              onChange={(e) => setFabric({ hex: e.target.value }, true)} onBlur={commit} />
+            <span className="num" style={{ alignSelf: 'center' }}>{fabric.hex}</span>
+            <button className="btn" disabled={disabled} onClick={pickFromEdges}>Pick from edges</button>
+          </div>
+        </div>
+        {fabric.enabled && (
+          <Slider label="Tolerance" value={fabric.tolerance} min={0} max={1} step={0.01} display={pct} ends={['Exact', 'Loose']}
+            onInput={(v) => setFabric({ tolerance: v }, true)} onCommit={commit} />
+        )}
+        <div className="note">Anything close to the fabric colour is left unstitched and drops out of the palette, the regions, and the estimate. Made for subjects stitched onto dark cloth.</div>
       </Section>
 
       <Section title="Colour">

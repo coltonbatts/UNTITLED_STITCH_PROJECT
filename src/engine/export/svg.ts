@@ -9,6 +9,8 @@ export interface SvgOptions {
   showLegend: boolean;
   outlineStrength: number; // 0–1
   projectName: string;
+  /** Fabric colour when the background is left bare; drawn behind the artwork. */
+  fabricHex?: string;
   /** Extra JSON stored in <metadata>. */
   metadata?: Record<string, unknown>;
 }
@@ -45,11 +47,16 @@ export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, eff
   parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:np="https://needlepaint.app/ns/1" width="${f2(docW)}mm" height="${f2(docH)}mm" viewBox="0 0 ${f2(docW)} ${f2(docH)}" np:version="1">`);
   parts.push(`<title>${esc(opts.projectName)} — needle-painting pattern</title>`);
-  const meta = { project: opts.projectName, widthMm: W, heightMm: H, mmPerPx: s, mode: opts.mode, legend: pattern.legend.map((l) => ({ index: l.index, dmc: l.thread.number, name: l.thread.name, hex: l.thread.hex, regions: l.regionCount, areaMm2: Math.round(l.areaMm2 * 10) / 10 })), estimates: pattern.estimates, ...(opts.metadata ?? {}) };
+  const meta = { project: opts.projectName, widthMm: W, heightMm: H, mmPerPx: s, mode: opts.mode, fabric: opts.fabricHex ?? null, legend: pattern.legend.map((l) => ({ index: l.index, dmc: l.thread.number, name: l.thread.name, hex: l.thread.hex, regions: l.regionCount, areaMm2: Math.round(l.areaMm2 * 10) / 10 })), estimates: pattern.estimates, ...(opts.metadata ?? {}) };
   parts.push(`<metadata><np:project>${esc(JSON.stringify(meta))}</np:project></metadata>`);
   parts.push(`<style>text{font-family:Helvetica,Arial,sans-serif;font-weight:600;text-anchor:middle;dominant-baseline:central;fill:#111}.legend text{text-anchor:start}</style>`);
   parts.push(`<rect width="${f2(docW)}" height="${f2(docH)}" fill="#fff"/>`);
   parts.push(`<g id="artwork" transform="translate(${margin} ${margin})">`);
+  if (opts.fabricHex) {
+    // Colour mode shows the cloth; pattern mode keeps paper white but marks the bare area with a faint hatch so it prints as "leave unstitched".
+    if (opts.mode === 'color') parts.push(`<rect id="fabric" width="${f2(W)}" height="${f2(H)}" fill="${esc(opts.fabricHex)}" data-fabric="${esc(opts.fabricHex)}"/>`);
+    else parts.push(`<defs><pattern id="bare" width="2" height="2" patternUnits="userSpaceOnUse"><path d="M0 2L2 0" stroke="#bbb" stroke-width="0.12"/></pattern></defs><rect id="fabric" width="${f2(W)}" height="${f2(H)}" fill="url(#bare)" data-fabric="${esc(opts.fabricHex)}"/>`);
+  }
   parts.push(`<g id="regions" transform="scale(${s})" fill-rule="evenodd" stroke-linejoin="round">`);
   for (const r of graph.regions) {
     const t = effectiveThreads[r.paletteIndex];
@@ -81,7 +88,7 @@ export function buildPatternSvg(graph: RegionGraph, _palette: ThreadPalette, eff
   const barLen = W >= 100 ? 50 : W >= 40 ? 20 : 10;
   const by = H + 5;
   parts.push(`<g id="scale"><line x1="0" y1="${f2(by)}" x2="${f2(barLen)}" y2="${f2(by)}" stroke="#111" stroke-width="0.25"/><line x1="0" y1="${f2(by - 1)}" x2="0" y2="${f2(by + 1)}" stroke="#111" stroke-width="0.25"/><line x1="${f2(barLen)}" y1="${f2(by - 1)}" x2="${f2(barLen)}" y2="${f2(by + 1)}" stroke="#111" stroke-width="0.25"/><text x="${f2(barLen / 2)}" y="${f2(by + 2.6)}" font-size="2.2">${barLen} mm</text>`);
-  parts.push(`<text x="${f2(W / 2)}" y="${f2(by + 2.6)}" font-size="2.2" style="font-weight:400">${f2(W)} × ${f2(H)} mm · ${graph.regions.length} regions · ${pattern.legend.length} colours</text></g>`);
+  parts.push(`<text x="${f2(W / 2)}" y="${f2(by + 2.6)}" font-size="2.2" style="font-weight:400">${f2(W)} × ${f2(H)} mm · ${graph.regions.length} regions · ${pattern.legend.length} colours${opts.fabricHex ? ` · fabric ${esc(opts.fabricHex)}` : ''}</text></g>`);
   parts.push(`</g>`);
   if (opts.showLegend) {
     parts.push(`<g id="legend" class="legend" transform="translate(${f2(W + margin * 2)} ${margin})">`);

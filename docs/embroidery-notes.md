@@ -28,3 +28,36 @@ for, or an open question (see 06).
 * **Blends are regions too.** A/B alternation zones are how needle painters
   actually transition. The model reserves a blend spec so a zone can be a
   first-class region with two threads.
+
+## Learned from a finished piece (papillon with winged rider on dark cloth, 2026-09-04)
+
+Reverse-engineered from a photograph of a completed embroidery the artist is
+about to stitch again. What it shows about her practice, and what it did to
+the engine:
+
+* **The cloth is a colour, not a region.** The dark-brown ground is bare
+  fabric; nothing is stitched there. Treating every pixel as stitchable
+  wasted most of the palette and region budget on the background.
+  → *Implemented:* the **Fabric** section. A fabric colour (suggested from
+  the image border) plus a tight tolerance masks those pixels out of the
+  palette, segmentation, pattern, and estimate. The rim between subject and
+  cloth is eroded by one pixel so the anti-aliased halo never becomes a
+  thread. Black ears on dark-brown cloth are only ~0.05 OKLab apart, which
+  is why the tolerance range is deliberately narrow.
+* **Sparse palette, flat fills.** Roughly eight threads: white, black, two
+  reds, gold, olive, a pale skin tone, dark brown. Source art is
+  illustration, not photography, so *Colour fidelity* high and *Thread
+  colours* around 8 is the right starting point. → *Open:* a "Flat art"
+  preset (no pre-blur, exact colour, hard edges).
+* **Line work rides on top of fills.** Wing veins, the text, and the star
+  outlines are single-thread stem/back stitch drawn over satin or
+  long-and-short. Our engine only knows fills; thin dark strokes either
+  vanish (too narrow) or become garbage slivers. → *Open, V1:* a line layer:
+  detect thin high-contrast strokes, emit them as stroked paths with a
+  suggested stitch, and remove them from the fill before segmentation.
+* **Direction is visible in every fill.** The papillon's fur, the hair, and
+  the wings all read as directional long stitches. Confirms the V2
+  structure-tensor stitch-flow plan; for flat art a per-region "direction
+  arrow" the artist sets by hand would already help.
+* **Lettering is a separate object.** Hand-lettered text is one stem-stitch
+  line; it should be exported as a path, not regions.

@@ -9,6 +9,7 @@ import { cropRotate, resample } from './image/resample';
 import { workingResolution } from './image/physical';
 import { buildWorkingImage } from './image/working';
 import { adjustRaster, IDENTITY_ADJUST } from './image/adjust';
+import { applyFabricMask } from './image/fabric';
 import { extractPalette } from './palette/extract';
 import { assignLabels, remapLabels } from './segmentation/assign';
 import { modeFilter } from './segmentation/modeFilter';
@@ -32,6 +33,7 @@ export class Pipeline {
   private raster?: Stage<RasterRGBA>;
   private adjusted?: Stage<RasterRGBA>;
   private working?: Stage<WorkingImage>;
+  private masked?: Stage<WorkingImage>;
   private palette?: Stage<ThreadPalette>;
   private segment?: Stage<{ raw: LabelMap; clean: LabelMap }>;
   private graph?: Stage<RegionGraph>;
@@ -77,9 +79,17 @@ export class Pipeline {
     if (this.working?.key !== workingKey) {
       const raster = this.adjusted.value;
       this.working = { key: workingKey, value: time('prepare', () => buildWorkingImage(raster, res.mmPerPx, params.preBlurSigmaMm)) };
+      this.masked = undefined;
+    }
+    // 1d. bare-fabric mask (depends on fabric colour / tolerance)
+    const fab = req.settings.fabric;
+    const maskKey = workingKey + JSON.stringify(fab?.enabled ? [fab.hex, fab.tolerance, params.minFeatureMm] : null);
+    if (this.masked?.key !== maskKey) {
+      const base = this.working.value;
+      this.masked = { key: maskKey, value: time('fabric', () => applyFabricMask(base, fab, params.minFeatureMm / res.mmPerPx)) };
       this.palette = undefined;
     }
-    const working = this.working.value;
+    const working = this.masked.value;
 
     // 2. palette (depends on thread count, fidelity weights, colour fidelity, locks)
     const locked = req.paletteEdits.locked.map((n) => this.library.byNumber.get(n)).filter((t): t is ThreadColor => !!t);
