@@ -16,16 +16,43 @@ export class EngineClient {
   onError: (message: string) => void = () => {};
 
   constructor() {
-    this.worker = new Worker(new URL('../engine/worker.ts', import.meta.url), { type: 'module' });
-    this.worker.onmessage = (ev: MessageEvent<WorkerOut>) => {
+    this.worker = this.spawn();
+  }
+
+  private spawn(): Worker {
+    const worker = new Worker(new URL('../engine/worker.ts', import.meta.url), { type: 'module' });
+    worker.onmessage = (ev: MessageEvent<WorkerOut>) => {
       const m = ev.data;
       if (m.requestId !== this.inFlight) return; // stale
       if (m.type === 'progress') { this.onProgress(m.stage); return; }
       this.inFlight = null;
       if (m.type === 'result') this.onResult(m.result); else this.onError(m.message);
-      if (this.pending) { const p = this.pending; this.pending = null; this.run(p); }
+      this.runPending();
     };
-    this.worker.onerror = (e) => { this.inFlight = null; this.onError(e.message); };
+    // A message that cannot be deserialised would otherwise leave the request in flight forever.
+    worker.onmessageerror = () => this.fail('Could not read the result from the engine');
+    // An uncaught error may have left the worker dead: replace it. The new one has no source
+    // image; the controller resends it when a run reports "Source image not loaded".
+    worker.onerror = (e) => {
+      e.preventDefault();
+      worker.terminate();
+      this.worker = this.spawn();
+      this.fail(e.message || 'The engine stopped unexpectedly');
+    };
+    return worker;
+  }
+
+  private fail(message: string): void {
+    this.inFlight = null;
+    this.onError(message);
+    this.runPending();
+  }
+
+  private runPending(): void {
+    if (!this.pending) return;
+    const p = this.pending;
+    this.pending = null;
+    this.run(p);
   }
 
   setSource(sourceId: string, source: RasterRGBA): void {
