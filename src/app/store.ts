@@ -33,6 +33,8 @@ export interface AppState {
   status: 'empty' | 'idle' | 'running' | 'error';
   stage: string | null;
   error: string | null;
+  /** Set when the last attempt to save to browser storage failed; cleared by the next success. */
+  saveError: string | null;
   view: ViewState;
   past: Snapshot[];
   future: Snapshot[];
@@ -62,6 +64,7 @@ const initial: AppState = {
   status: 'empty',
   stage: null,
   error: null,
+  saveError: null,
   view: { mode: 'regions', showLabels: true, showHoop: true, tintRegions: true, compare: false, selectedThread: null, hoverRegion: null },
   past: [],
   future: [],

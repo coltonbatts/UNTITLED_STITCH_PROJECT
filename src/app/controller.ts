@@ -5,7 +5,7 @@ import { croppedSourceSize } from '@/engine/image/physical';
 import type { Project } from '@/engine/types';
 import { EngineClient } from './workerClient';
 import { getState, setState, subscribe, updateProject, newProject } from './store';
-import { loadLastProject, saveImage, saveProject } from './persistence';
+import { loadLastProject, pruneOtherProjects, saveImage, saveProject } from './persistence';
 
 export const engine = new EngineClient();
 
@@ -35,6 +35,17 @@ function scheduleRun(): void {
   engine.run({ sourceId: s.project.source.id, crop, dimensions, settings, paletteEdits });
 }
 
+/** Runs a storage write and reports failure in the top bar instead of losing it silently. */
+async function persist(write: () => Promise<void>): Promise<void> {
+  try {
+    await write();
+    if (getState().saveError) setState({ saveError: null });
+  } catch (e) {
+    const quota = e instanceof DOMException && e.name === 'QuotaExceededError';
+    setState({ saveError: quota ? 'browser storage is full' : e instanceof Error ? e.message : String(e) });
+  }
+}
+
 let saveTimer: number | undefined;
 let lastSavedRevision = -1;
 function scheduleSave(): void {
@@ -42,7 +53,7 @@ function scheduleSave(): void {
   if (s.revision === lastSavedRevision) return;
   lastSavedRevision = s.revision;
   window.clearTimeout(saveTimer);
-  saveTimer = window.setTimeout(() => { void saveProject(getState().project); }, 400);
+  saveTimer = window.setTimeout(() => { void persist(() => saveProject(getState().project)); }, 400);
 }
 
 subscribe(() => { scheduleRun(); scheduleSave(); });
@@ -63,8 +74,11 @@ export async function importImageFile(file: File): Promise<void> {
   engine.setSource(sourceId, decoded);
   lastRunKey = '';
   setState({ project, sourceRaster: { width: decoded.width, height: decoded.height, rgba: decoded.rgba }, result: null, status: 'running', past: [], future: [], revision: getState().revision + 1, view: { ...getState().view, selectedThread: null, hoverRegion: null } });
-  await saveImage(sourceId, file);
-  await saveProject(project);
+  await persist(async () => {
+    await saveImage(sourceId, file);
+    await saveProject(project);
+    await pruneOtherProjects(project);
+  });
 }
 
 export async function restoreLastSession(): Promise<boolean> {
@@ -74,6 +88,7 @@ export async function restoreLastSession(): Promise<boolean> {
   engine.setSource(last.project.source.id, decoded);
   lastRunKey = '';
   setState({ project: last.project, sourceRaster: { width: decoded.width, height: decoded.height, rgba: decoded.rgba }, status: 'running', revision: getState().revision + 1 });
+  await persist(() => pruneOtherProjects(last.project)); // clears anything left by older versions
   return true;
 }
 

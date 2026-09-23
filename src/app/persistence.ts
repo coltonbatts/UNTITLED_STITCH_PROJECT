@@ -44,8 +44,13 @@ export async function loadLastProject(): Promise<{ project: Project; image: Blob
   const image = project.source ? (await tx<Blob | undefined>('images', 'readonly', (s) => s.get(project.source!.id))) ?? null : null;
   return { project, image };
 }
-export async function clearAll(): Promise<void> {
-  await tx('projects', 'readwrite', (s) => s.clear());
-  await tx('images', 'readwrite', (s) => s.clear());
-  localStorage.removeItem(LAST_KEY);
+/**
+ * Only the last project can be reopened, so every other project and image is
+ * unreachable: delete them rather than let storage grow with each import.
+ */
+export async function pruneOtherProjects(keep: Project): Promise<void> {
+  const projectIds = await tx<IDBValidKey[]>('projects', 'readonly', (s) => s.getAllKeys());
+  for (const id of projectIds) if (id !== keep.id) await tx('projects', 'readwrite', (s) => s.delete(id));
+  const imageIds = await tx<IDBValidKey[]>('images', 'readonly', (s) => s.getAllKeys());
+  for (const id of imageIds) if (id !== keep.source?.id) await tx('images', 'readwrite', (s) => s.delete(id));
 }

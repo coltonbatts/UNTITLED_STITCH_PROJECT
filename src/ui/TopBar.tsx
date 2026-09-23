@@ -40,6 +40,7 @@ export function TopBar() {
       <button className="btn quiet" onClick={redo} disabled={s.future.length === 0} title="Redo (⇧⌘Z)">Redo</button>
       <div className="spacer" />
       <span className={`status${s.status === 'error' ? ' err' : ''}`} aria-live="polite">{statusText}</span>
+      {s.saveError && <span className="status err" role="alert" title={s.saveError}>Not saved: {s.saveError}</span>}
       <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) void importImageFile(f); e.target.value = ''; }} />
       <button className="btn" onClick={() => fileRef.current?.click()}>Import…</button>
       <div className="menu" ref={menuRef}>
