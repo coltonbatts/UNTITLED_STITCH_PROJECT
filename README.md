@@ -14,6 +14,7 @@ npm run dev        # http://localhost:5173
 npm test           # engine tests (vitest, Node, synthetic fixtures)
 npm run build      # typecheck + production bundle
 npm run dmc:build  # regenerate src/data/dmc/dmc-floss.json from data/dmc
+npm run bench      # run the engine on the sample photo; compare before/after engine changes
 ```
 
 ## Read first

@@ -1,11 +1,25 @@
+// Regression bench for the photo path: runs the full pipeline on an image in
+// Node and prints regions, lines, palette, mean assignment error, and timings.
+//
+//   npm run bench                                  # the sample retriever
+//   npm run bench -- path/to/photo.jpg             # any JPEG or BMP
+//   npm run bench -- photo.jpg '{"threadCount":8}' # with settings overrides
+//
+// Node decodes the JPEG with jpeg-js, not the browser's decoder, so these
+// numbers are comparable run to run but not to what the app shows.
 import { readFileSync } from 'node:fs';
+import jpeg from 'jpeg-js';
 import { Pipeline } from '@/engine/pipeline';
 import { getDmcLibrary } from '@/engine/threads/dmc';
 import { DEFAULT_SETTINGS } from '@/engine/embroidery/params';
+import { buildWorkingImage } from '@/engine/image/working';
+import { workingResolution } from '@/engine/image/physical';
+import { cropRotate, resample } from '@/engine/image/resample';
 import type { RasterRGBA, ProcessingSettings } from '@/engine/types';
 
-function readBmp(path: string): RasterRGBA {
-  const b = readFileSync(path);
+const DEFAULT_IMAGE = 'public/samples/golden-retriever.jpg';
+
+function readBmp(b: Buffer): RasterRGBA {
   const off = b.readUInt32LE(10), w = b.readInt32LE(18), hRaw = b.readInt32LE(22), bpp = b.readUInt16LE(28);
   const h = Math.abs(hRaw), topDown = hRaw < 0;
   const row = Math.floor((w * bpp + 31) / 32) * 4;
@@ -19,22 +33,32 @@ function readBmp(path: string): RasterRGBA {
   }
   return { width: w, height: h, rgba };
 }
-const src = readBmp(process.argv[2]);
+
+function readJpeg(b: Buffer): RasterRGBA {
+  const d = jpeg.decode(b, { useTArray: true, formatAsRGBA: true });
+  return { width: d.width, height: d.height, rgba: new Uint8ClampedArray(d.data.buffer, d.data.byteOffset, d.data.byteLength) };
+}
+
+function readImage(path: string): RasterRGBA {
+  const b = readFileSync(path);
+  if (b[0] === 0x42 && b[1] === 0x4d) return readBmp(b); // "BM"
+  if (b[0] === 0xff && b[1] === 0xd8) return readJpeg(b); // JPEG SOI
+  throw new Error(`${path}: only JPEG and BMP are supported`);
+}
+
+const src = readImage(process.argv[2] ?? DEFAULT_IMAGE);
 const over: Partial<ProcessingSettings> = process.argv[3] ? JSON.parse(process.argv[3]) : {};
 const widthMm = 150, heightMm = Math.round((widthMm / (src.width / src.height)) * 10) / 10;
 const p = new Pipeline(getDmcLibrary());
 const res = p.run({ sourceId: 'r', source: src, crop: { x: 0, y: 0, w: 1, h: 1, rotation: 0 }, dimensions: { widthMm, heightMm, strands: 1 },
   settings: { ...DEFAULT_SETTINGS, ...over }, paletteEdits: { locked: [], replacements: {}, merges: {} } });
-console.log('regions', res.graph.regions.length, 'lines', (res as any).lines?.strokes?.length ?? 0);
+console.log('regions', res.graph.regions.length, 'lines', res.lines.strokes.length);
 // Mean assignment error: how far each stitched pixel is from its thread, in OKLab, for the raw and cleaned maps.
-import { buildWorkingImage } from '@/engine/image/working';
-import { workingResolution } from '@/engine/image/physical';
-import { cropRotate, resample } from '@/engine/image/resample';
 const r = workingResolution({ widthMm, heightMm, strands: 1 }, 4);
 const w = buildWorkingImage(resample(cropRotate(src, { x: 0, y: 0, w: 1, h: 1, rotation: 0 }), r.width, r.height), r.mmPerPx, 0);
 const err = (labels: Uint16Array) => { let s = 0, n = 0; for (let i = 0; i < labels.length; i++) { const l = labels[i]; if (l >= res.palette.entries.length) continue; const t = res.palette.entries[l].thread.oklab; s += Math.hypot(w.oklab[i*3]-t[0], w.oklab[i*3+1]-t[1], w.oklab[i*3+2]-t[2]); n++; } return (s / n).toFixed(4); };
 console.log('meanDE raw', err(res.rawLabelMap.labels), 'clean', err(res.labelMap.labels));
-for (const l of (res as any).lines?.strokes ?? []) console.log('  line', l.source, l.thread.number, 'w', l.widthMm.toFixed(2), 'len', l.lengthMm.toFixed(1), 'at', JSON.stringify(l.paths[0][0]));
+for (const l of res.lines.strokes) console.log('  line', l.source, l.thread.number, 'w', l.widthMm.toFixed(2), 'len', l.lengthMm.toFixed(1), 'at', JSON.stringify(l.paths[0][0]));
 console.log('palette', res.palette.entries.map((e) => e.thread.number).join(' '));
 console.log('labels', res.pattern.labels.filter((l) => l.tier === 'leader').length, 'leaders /', res.pattern.labels.length);
 console.log('timings', JSON.stringify(res.timingsMs));
