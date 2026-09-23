@@ -11,18 +11,25 @@
 * Local persistence (IndexedDB), undo/redo.
 * Bare-fabric background: fabric colour + tolerance masks unstitched cloth (added after studying a finished piece; see embroidery-notes).
 * Engine tests with synthetic fixtures.
+* Colour grading: hue / saturation / lightness before thread matching.
 
 ## V1: an artist can work from it
 
-* Crop and rotate tool on the canvas.
+Done:
+
+* Quarter-turn rotate (Inspector buttons).
 * Line layer: thin high-contrast strokes (veins, lettering, outlines) as stroked paths over the fills, not fill regions.
-* Flat-art preset: no pre-blur, exact colour, hard edges, ~8 threads.
+* Flat-art preset: no pre-blur, exact colour, hard edges, ~8 threads; with halo suppression for anti-aliased edges.
+* Presets: Portrait, Animal, Botanical, Landscape, Flat.
+
+Still to do:
+
+* Crop tool on the canvas (free rotation too, if wanted).
 * Eyedropper on the canvas for the fabric colour (today: border median or a colour input).
 * Region-level thread override and region merge by clicking the canvas.
 * Width-based narrow-region cleanup.
-* Presets: Portrait, Animal, Botanical, Landscape, Flat.
 * "Threads I own" preference weighting.
-* PDF export with legend and project sheet.
+* PDF export with legend and project sheet (today: print the SVG via the browser).
 * Anchor/Madeira libraries (data only).
 
 ## V2: needle-painting intelligence
